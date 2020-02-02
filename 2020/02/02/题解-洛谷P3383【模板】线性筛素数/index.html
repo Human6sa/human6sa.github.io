@@ -83,14 +83,14 @@
 
 
 
-<meta name="description" content="https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;problem&#x2F;P3383 题目描述给定一个范围 $n$ ，有 $q$ 个询问，每次输出第 $k$ 小的素数。 输入格式第一行包含两个正整数 $n,q$ ，分别表示查询的范围和查询的个数。 接下来 $q$ 行每行一个正整数 $k$ ，表示查询第 $k$ 小的素数。 输出格式输出 $q$ 行，每行一个正整数表示答案。 输入输出样例输入11234561">
+<meta name="description" content="https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;problem&#x2F;P3383 题目描述给定一个范围n，有q个询问，每次输出第k小的素数。 输入格式第一行包含两个正整数n,q ，分别表示查询的范围和查询的个数。 接下来q行每行一个正整数k，表示查询第k小的素数。 输出格式输出q行，每行一个正整数表示答案。 输入输出样例输入1123456100 512345  输出112345235711 说明&#x2F;提示">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[题解]洛谷P3383【模板】线性筛素数">
 <meta property="og:url" content="https://human6sa.github.io/2020/02/02/%E9%A2%98%E8%A7%A3-%E6%B4%9B%E8%B0%B7P3383%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E7%BA%BF%E6%80%A7%E7%AD%9B%E7%B4%A0%E6%95%B0/index.html">
 <meta property="og:site_name" content="Human6sa">
-<meta property="og:description" content="https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;problem&#x2F;P3383 题目描述给定一个范围 $n$ ，有 $q$ 个询问，每次输出第 $k$ 小的素数。 输入格式第一行包含两个正整数 $n,q$ ，分别表示查询的范围和查询的个数。 接下来 $q$ 行每行一个正整数 $k$ ，表示查询第 $k$ 小的素数。 输出格式输出 $q$ 行，每行一个正整数表示答案。 输入输出样例输入11234561">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;problem&#x2F;P3383 题目描述给定一个范围n，有q个询问，每次输出第k小的素数。 输入格式第一行包含两个正整数n,q ，分别表示查询的范围和查询的个数。 接下来q行每行一个正整数k，表示查询第k小的素数。 输出格式输出q行，每行一个正整数表示答案。 输入输出样例输入1123456100 512345  输出112345235711 说明&#x2F;提示">
 <meta property="article:published_time" content="2020-02-02T15:15:32.000Z">
-<meta property="article:modified_time" content="2020-02-02T15:32:42.347Z">
+<meta property="article:modified_time" content="2020-02-02T15:40:24.754Z">
 <meta property="article:author" content="雄鹰展翅">
 <meta property="article:tag" content="OI">
 <meta name="twitter:card" content="summary">
@@ -366,22 +366,22 @@
 
       
         <p><a href="https://www.luogu.com.cn/problem/P3383" target="_blank" rel="noopener">https://www.luogu.com.cn/problem/P3383</a></p>
-<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>给定一个范围 $n$ ，有 $q$ 个询问，每次输出第 $k$ 小的素数。</p>
-<h1 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h1><p>第一行包含两个正整数 $n,q$ ，分别表示查询的范围和查询的个数。</p>
-<p>接下来 $q$ 行每行一个正整数 $k$ ，表示查询第 $k$ 小的素数。</p>
-<h1 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h1><p>输出 $q$ 行，每行一个正整数表示答案。</p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>给定一个范围n，有q个询问，每次输出第k小的素数。</p>
+<h1 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h1><p>第一行包含两个正整数n,q ，分别表示查询的范围和查询的个数。</p>
+<p>接下来q行每行一个正整数k，表示查询第k小的素数。</p>
+<h1 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h1><p>输出q行，每行一个正整数表示答案。</p>
 <h1 id="输入输出样例"><a href="#输入输出样例" class="headerlink" title="输入输出样例"></a>输入输出样例</h1><h2 id="输入1"><a href="#输入1" class="headerlink" title="输入1"></a>输入1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">100 5</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
 
 <h2 id="输出1"><a href="#输出1" class="headerlink" title="输出1"></a>输出1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">3</span><br><span class="line">5</span><br><span class="line">7</span><br><span class="line">11</span><br></pre></td></tr></table></figure>
-<h1 id="说明-提示"><a href="#说明-提示" class="headerlink" title="说明/提示"></a>说明/提示</h1><h2 id="【数据范围】"><a href="#【数据范围】" class="headerlink" title="【数据范围】"></a>【数据范围】</h2><p>对于 100% 的数据，$n = 10^8$ ，$1≤q≤10^6$ ，保证查询的素数不大于 $n$。</p>
+<h1 id="说明-提示"><a href="#说明-提示" class="headerlink" title="说明/提示"></a>说明/提示</h1><h2 id="【数据范围】"><a href="#【数据范围】" class="headerlink" title="【数据范围】"></a>【数据范围】</h2><p>对于 100% 的数据，n = 10^8 ，1≤q≤10^6，保证查询的素数不大于n。</p>
 <h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>难度：橙</p>
-<h2 id="埃氏筛："><a href="#埃氏筛：" class="headerlink" title="埃氏筛："></a>埃氏筛：</h2><pre><code>要想得到n以内的质数，就要把不大于 的质数的倍数全部剔除，剩下的就是质数。从2开始枚举，查到一个未标记为合数的，就把它的倍数（不包括本身）标记为合数，查到n为止。
-
-有一个小优化，把t的倍数标记为合数时，不是从2t开始，而是从 t2开始（因为小于 t2的t的倍数在枚举到t前就被标记过了）。</code></pre><h2 id="欧拉筛："><a href="#欧拉筛：" class="headerlink" title="欧拉筛："></a>欧拉筛：</h2><pre><code>考虑到埃氏筛中会存在重复筛的情况，这里换一种方法。
-
-每个数都可以拆成最小质因数×最大因数的形式。枚举每个数作为最大因数，再枚举最小质因数进行筛选。
-
-先看代码：</code></pre><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!vis[i]) a[++cnt]=i;</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=cnt&amp;&amp;i*a[j]&lt;=n;j++)&#123;<span class="comment">//不越界</span></span><br><span class="line">    	vis[i*a[j]]=<span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">if</span>(i%a[j]==<span class="number">0</span>) <span class="keyword">break</span>;<span class="comment">//谜之常数，换成!会TLE</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="埃氏筛："><a href="#埃氏筛：" class="headerlink" title="埃氏筛："></a>埃氏筛：</h2><p>要想得到n以内的质数，就要把不大于根号n的质数的倍数全部剔除，剩下的就是质数。</p>
+<p>从2开始枚举，查到一个未标记为合数的，就把它的倍数（不包括本身）标记为合数，查到n为止。</p>
+<p>有一个小优化，把t的倍数标记为合数时，不是从2t开始，而是从 t2开始（因为小于 t2的t的倍数在枚举到t前就被标记过了）。</p>
+<h2 id="欧拉筛："><a href="#欧拉筛：" class="headerlink" title="欧拉筛："></a>欧拉筛：</h2><p>考虑到埃氏筛中会存在重复筛的情况，这里换一种方法。</p>
+<p>每个数都可以拆成最小质因数×最大因数的形式。</p>
+<p>枚举每个数作为最大因数，再枚举最小质因数进行筛选。</p>
+<pre><code>先看代码：</code></pre><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!vis[i]) a[++cnt]=i;</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=cnt&amp;&amp;i*a[j]&lt;=n;j++)&#123;<span class="comment">//不越界</span></span><br><span class="line">    	vis[i*a[j]]=<span class="number">1</span>;</span><br><span class="line">    	<span class="keyword">if</span>(i%a[j]==<span class="number">0</span>) <span class="keyword">break</span>;<span class="comment">//谜之常数，换成!会TLE</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <pre><code>i表示最大因数,a[j]表示最小质因数。
 
 为保证每个数只筛一次，当i%a[j]==0退出。</code></pre><p>证明：<br>    因为i%a[j]==0,设i=a[j]*k,</p>
