@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/16/JkM9LF.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/04/16/JkMpsU.png">
 <meta property="article:published_time" content="2020-04-21T07:00:49.000Z">
-<meta property="article:modified_time" content="2020-04-21T07:58:04.844Z">
+<meta property="article:modified_time" content="2020-04-21T08:01:02.986Z">
 <meta property="article:author" content="雄鹰展翅">
 <meta property="article:tag" content="OI">
 <meta name="twitter:card" content="summary">
@@ -383,12 +383,12 @@
 <p>假设光线在x轴移动的速度为a m/s,则其在y轴移动的速度为b m/s。</p>
 <p>画出光线的横纵坐标与时间的函数图像：</p>
 <p><a href="https://imgchr.com/i/JkMpsU" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/04/16/JkMpsU.png" alt="JkMpsU.png"></a></p>
-<p>从图像中可以看出，x方向上每隔 $ t1=n/a $ 秒碰撞一次墙壁，y方向上每隔 $ t2=m/b $ 秒碰撞一次墙壁，</p>
+<p>从图像中可以看出，x方向上每隔  t1=n/a  秒碰撞一次墙壁，y方向上每隔  t2=m/b  秒碰撞一次墙壁，</p>
 <p>当光线在x和y方向上同时碰撞墙壁时，光线就落入了墙角。</p>
-<p>此时的总时间为 $ T=lcm(t1,t2) $</p>
-<p>故碰撞总次数为 $ T/t1+T/t2-2 $ (减2是减去最终在角落处的碰撞)。</p>
-<p>这里有一个细节，为了避免t1和t2不是整数而导致lcm出错的现象发生，我们可以将 $ n/a $ 和 $ m/b $ 同乘ab，</p>
-<p>即： $ lcm(abt1,abt2)/abt1=ablcm(t1,t2)/abt1=lcm(t1,t2)/t1 $ ,</p>
+<p>此时的总时间为  T=lcm(t1,t2) </p>
+<p>故碰撞总次数为  T/t1+T/t2-2  (减2是减去最终在角落处的碰撞)。</p>
+<p>这里有一个细节，为了避免t1和t2不是整数而导致lcm出错的现象发生，我们可以将  n/a  和  m/b  同乘ab，</p>
+<p>即：  lcm(abt1,abt2)/abt1=ablcm(t1,t2)/abt1=lcm(t1,t2)/t1  ,</p>
 <p>最终结果不变。</p>
 <p>除了这些，还要特判a=0或b=0的情况。</p>
 <h1 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line">ll n,m,a,b;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">gcd</span><span class="params">(ll a,ll b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b==<span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">return</span> gcd(b,a%b); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ll k1,k2,k,t;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m&gt;&gt;a&gt;&gt;b;</span><br><span class="line">	<span class="keyword">if</span>(a==<span class="number">0</span>||b==<span class="number">0</span>) &#123;<span class="built_in">cout</span>&lt;&lt;<span class="number">0</span>&lt;&lt;<span class="built_in">endl</span>; <span class="keyword">return</span> <span class="number">0</span>;&#125;</span><br><span class="line">	t=gcd(a,b),a/=t,b/=t;<span class="comment">//化简，可以避免爆精度</span></span><br><span class="line">	t=gcd(n,m),n/=t,m/=t;</span><br><span class="line">	</span><br><span class="line">	a*=m,b*=n; <span class="comment">//根据gcd(a,b)*lcm(a,b)=a*b化简</span></span><br><span class="line">    t=gcd(a,b);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;a/t+b/t<span class="number">-2</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
