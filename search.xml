@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>建站小记</title>
+      <link href="/2022/08/03/%E5%BB%BA%E7%AB%99%E5%B0%8F%E8%AE%B0/"/>
+      <url>/2022/08/03/%E5%BB%BA%E7%AB%99%E5%B0%8F%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<p>2020年搭了一个博客，后来电脑重装系统，于是把相关文件备份了一份。</p><p>博客迁移的时候发现_config.yml被删了，脑子一抽把github上的仓库删了又重新开了一个。</p><p>折腾了三天总算是建好了。</p><p>参考：<a href="https://xxxpt.blog.csdn.net/article/details/102557949">https://xxxpt.blog.csdn.net/article/details/102557949</a></p><p>update 22.8.3: 换了一台游匣G15，这次迁移成功了^_^</p><p>$$ 「路漫漫其修远兮，吾将上下而求索。」 $$</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 随笔 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="/2022/07/22/hello-world/"/>
       <url>/2022/07/22/hello-world/</url>
@@ -27,25 +46,6 @@
       <categories>
           
           <category> Blog </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>建站小记</title>
-      <link href="/2022/07/16/%E5%BB%BA%E7%AB%99%E5%B0%8F%E8%AE%B0/"/>
-      <url>/2022/07/16/%E5%BB%BA%E7%AB%99%E5%B0%8F%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<p>2020年搭了一个博客，后来电脑重装系统，于是把相关文件备份了一份。</p><p>博客迁移的时候发现_config.yml被删了，脑子一抽把github上的仓库删了又重新开了一个。</p><p>折腾了三天总算是建好了。</p><p>参考：<a href="https://xxxpt.blog.csdn.net/article/details/102557949">https://xxxpt.blog.csdn.net/article/details/102557949</a></p><p>update 22.8.3: 换了一台游匣G15，这次迁移成功了^_^</p><p>$$ 「路漫漫其修远兮，吾将上下而求索。」 $$</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 随笔 </category>
           
       </categories>
       
