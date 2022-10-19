@@ -4,16 +4,41 @@
   
     
     <entry>
-      <title>每日刷题记录</title>
-      <link href="/%E6%AF%8F%E6%97%A5%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95.html"/>
-      <url>/%E6%AF%8F%E6%97%A5%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95.html</url>
+      <title>常用STL函数</title>
+      <link href="/%E5%B8%B8%E7%94%A8STL%E5%87%BD%E6%95%B0.html"/>
+      <url>/%E5%B8%B8%E7%94%A8STL%E5%87%BD%E6%95%B0.html</url>
       
-        <content type="html"><![CDATA[<h3 id="2022年"><a href="#2022年" class="headerlink" title="2022年"></a>2022年</h3><p>$10.17$  洛谷  P2216​ 理想的正方形（二维单调队列）</p><p>$10.18$ UVA 11572 Unique Snowflakes（双指针+map）</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="C-标准模板库-STL-之Vector容器"><a href="#C-标准模板库-STL-之Vector容器" class="headerlink" title="C++标准模板库(STL)之Vector容器:"></a>C++标准模板库(STL)之Vector容器:</h1><p>是一种顺序容器，事实上和数组差不多，但它比数组更优越。一般来说数组不能<strong>动态</strong>拓展，因此在程序运行的时候不是浪费内存，就是造成越界。而vector正好弥补了这个缺陷，它的特征是相当于可分配拓展的数组，它的随机访问快，在末端插入和删除快，在中间插入和删除慢。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">v.<span class="built_in">push_back</span>(t)  <span class="comment">//在数组的最后添加一个值为t的元素</span></span><br><span class="line">v.<span class="built_in">pop_back</span>()  <span class="comment">//去掉数组的最后一个数据 </span></span><br><span class="line">v.<span class="built_in">front</span>() 　　　<span class="comment">//返回第一个元素</span></span><br><span class="line">v.<span class="built_in">back</span>()    <span class="comment">//返回最后一个元素</span></span><br><span class="line">v.<span class="built_in">begin</span>()    <span class="comment">//得到数组头的指针，用迭代器接受</span></span><br><span class="line">v.<span class="built_in">end</span>()     <span class="comment">//得到数组的最后一个单元+1的指针，用迭代器接受</span></span><br><span class="line">v.<span class="built_in">clear</span>()    <span class="comment">// 移除容器中所有数据</span></span><br><span class="line">v.<span class="built_in">empty</span>()    <span class="comment">//判断容器是否为空吗，如果为空，则返回true 。</span></span><br><span class="line">v.<span class="built_in">erase</span>(pos)  <span class="comment">//删除pos位置的数据</span></span><br><span class="line">v.<span class="built_in">erase</span>(beg,end)<span class="comment">// 删除[beg,end)区间的数据</span></span><br><span class="line">v.<span class="built_in">size</span>()     <span class="comment">//回容器中实际数据的个数</span></span><br><span class="line">v.<span class="built_in">insert</span>(pos,data) <span class="comment">//在pos处插入数据</span></span><br><span class="line">v[n]        <span class="comment">//返回 v中位置为 n的元素。</span></span><br><span class="line">v.<span class="built_in">at</span>(n)     <span class="comment">// 返回 v中位置为 n的元素</span></span><br></pre></td></tr></table></figure><h1 id="C-标准模板库-STL-之Set容器"><a href="#C-标准模板库-STL-之Set容器" class="headerlink" title="C++标准模板库(STL)之Set容器:"></a>C++标准模板库(STL)之Set容器:</h1><p>关于set，必须说明的是set关联式容器。set作为一个容器也是用来存储同一数据类型的数据类型，并且能从一个数据集合中取出数据，在set中每个元素的值都唯一，而且系统能根据元素的值自动进行排序。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s.<span class="built_in">begin</span>()     <span class="comment">//返回指向第一个元素的迭代器</span></span><br><span class="line">s.<span class="built_in">end</span>()      <span class="comment">//返回指向最后一个元素之后的迭代器，不是最后一个元素</span></span><br><span class="line">s.<span class="built_in">clear</span>()     <span class="comment">//清除所有元素   O(n)</span></span><br><span class="line">s.<span class="built_in">count</span>()     <span class="comment">//返回某个值元素的个数O(logn)</span></span><br><span class="line">s.<span class="built_in">empty</span>()    <span class="comment">//如果集合为空，返回true</span></span><br><span class="line">s.<span class="built_in">erase</span>()     <span class="comment">//删除集合中的元素O(logn)</span></span><br><span class="line">s.<span class="built_in">find</span>()      <span class="comment">//返回一个指向被查找到元素的迭代器，如果没找到则返回end()</span></span><br><span class="line">s.<span class="built_in">insert</span>()     <span class="comment">//在集合中插入元素O(logn)</span></span><br><span class="line">s.<span class="built_in">size</span>()     <span class="comment">//集合中元素的数目O(1)</span></span><br></pre></td></tr></table></figure><h1 id="C-标准模板库-STL-之Map映射"><a href="#C-标准模板库-STL-之Map映射" class="headerlink" title="C++标准模板库(STL)之Map映射:"></a>C++标准模板库(STL)之Map映射:</h1><p>Map是STL的一个关联容器，它提供一对一（其中第一个可以称为关键字，每个关键字只能在map中出现一次，第二个可能称为该关键字的值）的数据处理能力，由于这个特性，它完成有可能在我们处理一对一数据的时候，在编程上提供快速通道。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string,<span class="type">int</span>&gt; m构建了一个字符串到整数的映射。</span><br><span class="line">m.<span class="built_in">begin</span>()     <span class="comment">//返回指向map头部的迭代器</span></span><br><span class="line">m.<span class="built_in">clear</span>(）     <span class="comment">////删除所有元素     O(n)</span></span><br><span class="line">m.<span class="built_in">count</span>()     <span class="comment">//返回指定元素出现的次数O(logn)</span></span><br><span class="line">m.<span class="built_in">empty</span>()     <span class="comment">//如果map为空则返回true</span></span><br><span class="line">m.<span class="built_in">end</span>()      <span class="comment">//返回指向map末尾的迭代器</span></span><br><span class="line">m.<span class="built_in">erase</span>()     <span class="comment">//删除一个元素</span></span><br><span class="line">m.<span class="built_in">find</span>()      <span class="comment">//查找一个元素</span></span><br><span class="line">m.<span class="built_in">insert</span>()    <span class="comment">// 插入元素        O(logn)</span></span><br><span class="line">m.<span class="built_in">max_size</span>()    <span class="comment">//返回可以容纳的最大元素个数</span></span><br><span class="line">m.<span class="built_in">size</span>()      <span class="comment">//返回map中元素的个数 O(1)</span></span><br><span class="line">m.<span class="built_in">swap</span>()      <span class="comment">//交换两个map</span></span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
           
-          <category> Blog </category>
+          <category> OI </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> STL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>每日刷题记录</title>
+      <link href="/%E6%AF%8F%E6%97%A5%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95.html"/>
+      <url>/%E6%AF%8F%E6%97%A5%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="2022年"><a href="#2022年" class="headerlink" title="2022年"></a>2022年</h2><p>$10.19$ 洛谷 P4653 [CEOI2017] Sure Bet （贪心+双指针）</p><p>$10.18$ UVA 11572 Unique Snowflakes（双指针+map）</p><p>$10.17$  洛谷  P2216​ 理想的正方形（二维单调队列）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> OI </category>
           
       </categories>
       
