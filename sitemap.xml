@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://human6sa.github.io/%E5%8F%8C%E6%8C%87%E9%92%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</loc>
+    
+    <lastmod>2022-10-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://human6sa.github.io/%E5%B8%B8%E7%94%A8STL%E5%87%BD%E6%95%B0.html</loc>
     
     <lastmod>2022-10-19</lastmod>
@@ -66,6 +75,13 @@
   
   <url>
     <loc>https://human6sa.github.io/tags/STL/</loc>
+    <lastmod>2022-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://human6sa.github.io/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2022-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
