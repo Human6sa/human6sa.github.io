@@ -8,12 +8,17 @@
   font-display: swap;
   src: url('/fonts/XK.ttf') format("truetype");
 }
+@font-face {
+  font-family: 'segoe print';
+  font-display: swap;
+  src: url('/fonts/segoe print.ttf') format("truetype");
+}
 div {
 	font-weight: 550;
 }
 h1 {
-	font-weight: 600;
+	font-weight: 700;
 }
 body {
-    font-family: 'DX','XK';
+    font-family: 'DX','XK','segoe print';
 }
