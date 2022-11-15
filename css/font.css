@@ -4,21 +4,16 @@
   src: url('/fonts/DX.ttf') format("truetype");
 }
 @font-face {
-  font-family: 'XK';
-  font-display: swap;
-  src: url('/fonts/XK.ttf') format("truetype");
-}
-@font-face {
   font-family: 'segoe print';
   font-display: swap;
   src: url('/fonts/segoe print.ttf') format("truetype");
 }
 div {
-	font-weight: 550;
+	font-weight: 500;
 }
 h1 {
 	font-weight: 700;
 }
 body {
-    font-family: 'DX','XK','segoe print';
+    font-family: 'DX','segoe print';
 }

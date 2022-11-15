@@ -119,13 +119,6 @@
 
   
   <url>
-    <loc>https://human6sa.github.io/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2022-11-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://human6sa.github.io/tags/STL/</loc>
     <lastmod>2022-11-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -146,17 +139,24 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://human6sa.github.io/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2022-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
-    <loc>https://human6sa.github.io/categories/OI/</loc>
+    <loc>https://human6sa.github.io/categories/Blog/</loc>
     <lastmod>2022-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://human6sa.github.io/categories/Blog/</loc>
+    <loc>https://human6sa.github.io/categories/OI/</loc>
     <lastmod>2022-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
