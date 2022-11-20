@@ -29,6 +29,31 @@
     
     
     <entry>
+      <title>搜索技巧</title>
+      <link href="/%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7.html"/>
+      <url>/%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h1><h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1>]]></content>
+      
+      
+      <categories>
+          
+          <category> OI </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 搜索 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>二分学习笔记</title>
       <link href="/%E4%BA%8C%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
       <url>/%E4%BA%8C%E5%88%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html</url>
