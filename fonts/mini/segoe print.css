@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "Segoe Print";
+    src: url("segoe print.eot"); /* IE9 */
+    src: url("segoe print.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("segoe print.woff2") format("woff2"), /* chrome 36+, firefox 39+,iOS 10+, Android 67+ */
+    url("segoe print.woff") format("woff"), /* chrome, firefox */
+    url("segoe print.ttf") format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url("segoe print.svg#Segoe Print") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
+}
+
+
