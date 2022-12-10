@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'DX';
   font-display: swap;
-  src: url('/fonts/DX.ttf') format("truetype");
+  src: url('/fonts/mini/DX.ttf') format("truetype");
 }
 @font-face {
   font-family: 'segoe print';
