@@ -6,7 +6,7 @@
 @font-face {
   font-family: 'segoe print';
   font-display: swap;
-  src: url('/fonts/segoe print.ttf') format("truetype");
+  src: url('/fonts/mini/segoe print.ttf') format("truetype");
 }
 div {
 	font-weight: 500;
