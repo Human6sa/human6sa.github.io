@@ -29,6 +29,31 @@
     
     
     <entry>
+      <title>【Python】print()函数的使用</title>
+      <link href="/python%E4%B8%AD%E7%9A%84%E8%BE%93%E5%87%BA%E5%87%BD%E6%95%B0.html"/>
+      <url>/python%E4%B8%AD%E7%9A%84%E8%BE%93%E5%87%BA%E5%87%BD%E6%95%B0.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="print-函数的使用"><a href="#print-函数的使用" class="headerlink" title="print()函数的使用"></a>print()函数的使用</h1><h2 id="print-函数可以输出哪些内容？"><a href="#print-函数可以输出哪些内容？" class="headerlink" title="print()函数可以输出哪些内容？"></a>print()函数可以输出哪些内容？</h2><ul><li>数字</li><li>字符串</li><li>含有运算符的表达式</li></ul><h2 id="print-函数可以输出到哪里？"><a href="#print-函数可以输出到哪里？" class="headerlink" title="print()函数可以输出到哪里？"></a>print()函数可以输出到哪里？</h2><ul><li>显示器</li><li>文件</li></ul><h2 id="print-函数的输出形式"><a href="#print-函数的输出形式" class="headerlink" title="print()函数的输出形式?"></a>print()函数的输出形式?</h2><ul><li>换行</li><li>不换行</li></ul><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="number">520</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="number">2</span>+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出到文件中</span></span><br><span class="line">fp=<span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>,<span class="string">&#x27;a+&#x27;</span>) <span class="comment"># a+的含义是以读写的方式打开这个文件</span></span><br><span class="line"><span class="comment"># 同时，参数为a+时，如果文件不存在就创建，如果文件存在就在后面追加</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;helloworld&#x27;</span>,file=fp)</span><br><span class="line">fp.close()</span><br><span class="line"></span><br><span class="line"><span class="comment">#不进行换行输出</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;I&#x27;</span>,<span class="string">&#x27; love &#x27;</span>,<span class="string">&#x27;cyo&#x27;</span>,<span class="string">&#x27;!&#x27;</span>)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python语法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>C++中的::运算符</title>
       <link href="/C++%E4%B8%AD%E7%9A%84-%E8%BF%90%E7%AE%97%E7%AC%A6.html"/>
       <url>/C++%E4%B8%AD%E7%9A%84-%E8%BF%90%E7%AE%97%E7%AC%A6.html</url>

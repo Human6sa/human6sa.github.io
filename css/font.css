@@ -1,12 +1,12 @@
 @font-face {
   font-family: 'DX';
   font-display: swap;
-  src: url('/fonts/mini/DX.ttf') format("truetype");
+  src: url('/fonts/DX.woff2') format("woff2");
 }
 @font-face {
   font-family: 'segoe print';
   font-display: swap;
-  src: url('/fonts/mini/segoe print.ttf') format("truetype");
+  src: url('/fonts/segoe print.ttf') format("truetype");
 }
 div {
 	font-weight: 500;
