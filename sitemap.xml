@@ -207,21 +207,7 @@
   </url>
   
   <url>
-    <loc>https://human6sa.github.io/tags/Python%E8%AF%AD%E6%B3%95/</loc>
-    <lastmod>2024-08-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://human6sa.github.io/tags/Qt/</loc>
-    <lastmod>2024-08-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://human6sa.github.io/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2024-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -242,7 +228,7 @@
   </url>
   
   <url>
-    <loc>https://human6sa.github.io/tags/STL/</loc>
+    <loc>https://human6sa.github.io/tags/Python%E8%AF%AD%E6%B3%95/</loc>
     <lastmod>2024-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -256,7 +242,21 @@
   </url>
   
   <url>
+    <loc>https://human6sa.github.io/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2024-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://human6sa.github.io/tags/%E6%90%9C%E7%B4%A2/</loc>
+    <lastmod>2024-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://human6sa.github.io/tags/STL/</loc>
     <lastmod>2024-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -279,13 +279,6 @@
   </url>
   
   <url>
-    <loc>https://human6sa.github.io/categories/Python/</loc>
-    <lastmod>2024-08-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://human6sa.github.io/categories/Qt/</loc>
     <lastmod>2024-08-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -301,6 +294,13 @@
   
   <url>
     <loc>https://human6sa.github.io/categories/OI/</loc>
+    <lastmod>2024-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://human6sa.github.io/categories/Python/</loc>
     <lastmod>2024-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
