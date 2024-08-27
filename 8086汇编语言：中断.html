@@ -1,0 +1,392 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>8086汇编语言：中断 | Human6sa's Blog</title><meta name="keywords" content="8086"><meta name="author" content="Human6sa"><meta name="copyright" content="Human6sa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="中断的概念软件中断软件中断又简称内中断，它通常由三种情况引起。  由中断指令INT n引起CPU执行完一条INT n指令后，会立即产生中断，并且调用系统中相应的中断处理子程序来完成中断功能，n指出中断类型。 由于CPU的某些错误引起（1）除法错中断（中断类型号 0）执行除法指令时，若发现除数为0或超过了寄存器所能表达的范围，则立即产生一个类型为0的中断。（2）溢出中断（中断类型号 4）若溢出标志O">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8086汇编语言：中断">
+<meta property="og:url" content="https://human6sa.github.io/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%B8%AD%E6%96%AD.html">
+<meta property="og:site_name" content="Human6sa&#39;s Blog">
+<meta property="og:description" content="中断的概念软件中断软件中断又简称内中断，它通常由三种情况引起。  由中断指令INT n引起CPU执行完一条INT n指令后，会立即产生中断，并且调用系统中相应的中断处理子程序来完成中断功能，n指出中断类型。 由于CPU的某些错误引起（1）除法错中断（中断类型号 0）执行除法指令时，若发现除数为0或超过了寄存器所能表达的范围，则立即产生一个类型为0的中断。（2）溢出中断（中断类型号 4）若溢出标志O">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://human6sa.github.io/img/Bing/BambooTreesIndia.webp">
+<meta property="article:published_time" content="2024-08-25T14:25:46.000Z">
+<meta property="article:modified_time" content="2024-08-27T14:18:07.472Z">
+<meta property="article:author" content="Human6sa">
+<meta property="article:tag" content="8086">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://human6sa.github.io/img/Bing/BambooTreesIndia.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://human6sa.github.io/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%B8%AD%E6%96%AD"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-fyZkyngDgY&quot; /&gt;"/><link rel="manifest" href="/img/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/img/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/pwa/16.png"/><link rel="mask-icon" href="/img/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5eb311ccfb724fdde2405cdc80110d7a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="/css/font.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '8086汇编语言：中断',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-27 22:18:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="baidu-site-verification" content="code-fyZkyngDgY" /><link rel="stylesheet" href="/js/baidutongji.js"><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/highlight.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/loading.gif" data-original="/img/blog_icon.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/resources/"><i class="fa-fw fas fa-cloud-download-alt"></i><span> 资源</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Bing/BambooTreesIndia.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Human6sa's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/resources/"><i class="fa-fw fas fa-cloud-download-alt"></i><span> 资源</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">8086汇编语言：中断</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-25T14:25:46.000Z" title="发表于 2024-08-25 22:25:46">2024-08-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-27T14:18:07.472Z" title="更新于 2024-08-27 22:18:07">2024-08-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B1%87%E7%BC%96/">汇编</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%B8%AD%E6%96%AD.html" data-flag-title="8086汇编语言：中断"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="中断的概念"><a href="#中断的概念" class="headerlink" title="中断的概念"></a>中断的概念</h2><h3 id="软件中断"><a href="#软件中断" class="headerlink" title="软件中断"></a>软件中断</h3><p>软件中断又简称内中断，它通常由三种情况引起。 </p>
+<h4 id="由中断指令INT-n引起"><a href="#由中断指令INT-n引起" class="headerlink" title="由中断指令INT n引起"></a>由中断指令INT n引起</h4><p>CPU执行完一条INT n指令后，会立即产生中断，并且调用系统中相应的中断处理子程序来完成中断功能，n指出中断类型。</p>
+<h4 id="由于CPU的某些错误引起"><a href="#由于CPU的某些错误引起" class="headerlink" title="由于CPU的某些错误引起"></a>由于CPU的某些错误引起</h4><p>（1）除法错中断（中断类型号 0）<br>执行除法指令时，若发现除数为0或超过了寄存器所能表达的范围，则立即产生一个类型为0的中断。<br>（2）溢出中断（中断类型号 4）<br>若溢出标志OF置1，由中断指令INTO来处理发生溢出的中断操作；若OF为0，则INTO指令不产生中断，CPU继续运行原程序。  </p>
+<h4 id="为调试程序-DEBUG-设置的中断"><a href="#为调试程序-DEBUG-设置的中断" class="headerlink" title="为调试程序(DEBUG)设置的中断"></a>为调试程序(DEBUG)设置的中断</h4><p>（1）单步中断（中断类型号 1）<br>在DEBUG下执行T命令（或P命令）时，陷阱标志TF置为1，CPU自动产生类型为1的单步中断。产生单步中断时，CPU自动地将PSW、CS和IP的内容入栈保存，然后清除TF、IF。<br>（2）断点中断(中断类型号 3)<br>断点中断也是供DEBUG调试程序使用的。在调试程序时，当CPU执行到断点时便产生中断，这时显示出各寄存器及相关标志，可以查看寄存器或存储单元的内容。设置断点实际上是把一条断点指令INT 3插入到程序中，CPU每执行到断点处的INT 3指令，便产生一个中断。       </p>
+<ul>
+<li>在内中断中，INT n指令和INTO指令产生的中断，以及除法错中断都不能被禁止，并且比任何外部中断的优先权都高。</li>
+</ul>
+<h3 id="硬件中断"><a href="#硬件中断" class="headerlink" title="硬件中断"></a>硬件中断</h3><p>硬件中断是由输入输出外设产生的中断请求引起的中断，又称为外部中断。80X86系统的硬件中断分为可屏蔽中断和不可屏蔽中断两大类。两者都是通过CPU的引脚引入中断请求信号的。 </p>
+<h4 id="不可屏蔽中断"><a href="#不可屏蔽中断" class="headerlink" title="不可屏蔽中断"></a>不可屏蔽中断</h4><p>不可屏蔽中断请求信号接到CPU的NMI引脚上，主要是发生电源故障、奇偶校验错、I&#x2F;O通道校验错等紧急情况时系统自动产生的。NMI不可屏蔽中断的中断类型号为2。 </p>
+<h4 id="可屏蔽中断"><a href="#可屏蔽中断" class="headerlink" title="可屏蔽中断"></a>可屏蔽中断</h4><p>可屏蔽中断是键盘、显示器、打印机、磁盘、串行口&#x2F;并行口等外设发出的。由于可屏蔽中断种类较多，各种处理要求不一样，因此系统专门用8259A中断控制器来管理这些中断。</p>
+<h3 id="中断类型与中断向量"><a href="#中断类型与中断向量" class="headerlink" title="中断类型与中断向量"></a>中断类型与中断向量</h3><h4 id="中断类型"><a href="#中断类型" class="headerlink" title="中断类型"></a>中断类型</h4><p>80X86系统提供了256个中断类型（可用1字节表示），类型号为0～FFH。<br>中断类型代表了不同的中断源，而系统对中断类型的分配按照一定的规则划分。例如0号～4号为内中断，8号～0FH号为8259A中断控制器控制的8个硬件中断，10H～1AH号为BIOS基本输入输出系统专用，21H号为DOS中断系统功能调用等。<br>在256个中断类型中，系统只占用了一部分，还有一些保留的供以后扩展时使用。  </p>
+<h4 id="中断向量"><a href="#中断向量" class="headerlink" title="中断向量"></a>中断向量</h4><p>与每个中断类型相对应的中断处理子程序都有一个入口地址，即该中断子程序第1条指令的逻辑地址，该入口地址称为中断向量。<br>中断向量存放在系统的中断向量表中。中断向量由段地址和偏移地址构成，占用4个字节单元 。将中断类型号乘以4，找到对应的存储单元就可取出中断向量。</p>
+<h4 id="中断优先级"><a href="#中断优先级" class="headerlink" title="中断优先级"></a>中断优先级</h4><p>优先级分类如下：<br>内部中断（优先级最高）<br>非屏蔽中断（NMI）<br>可屏蔽中断（INTR）<br>单步中断（优先级最低）</p>
+<h3 id="中断过程"><a href="#中断过程" class="headerlink" title="中断过程"></a>中断过程</h3><h4 id="中断响应条件"><a href="#中断响应条件" class="headerlink" title="中断响应条件"></a>中断响应条件</h4><p>满足以下4条，CPU才可以响应中断：<br>（1）  当前的指令周期结束；<br>（2）  采样到有效的中断请求信号；<br>（3）  如果是可屏蔽中断请求INTR，检查中断允许标志IF是否为1，即中断开放；<br>（4） CPU正在执行的程序不是中断服务程序，或者是中断优先级较低的中断服务程序。 </p>
+<p>有几种特殊情况CPU不能响应中断：<br>（1） 当执行到STI指令时，CPU不会马上响应中断。STI指令是开中断指令，要求在开放中断后再执行后续的一条指令后才能响应中断；<br>（2） IRET指令是中断子程序返回指令，它也要求再执行一条后续指令后才能响应中断。这样做的目的是保护系统能够正常运行；<br>（3）当执行MOV SS,AX指令，即向SS段寄存器传送数据时，即使发生了中断，CPU也不会响应；直到本条执行完后，接着再执行一条指令才响应中断。</p>
+<h4 id="中断处理"><a href="#中断处理" class="headerlink" title="中断处理"></a>中断处理</h4><p>CPU响应中断之后，就转入中断处理子程序执行。中断处理子程序的编写与子程序类似，也要保护现场和恢复现场。中断处理的内容和中断类型的设置要求相同。<br>中断也允许嵌套。由于中断类型被设置了优先级，如果新发生的中断级别高于现在正在处理的中断，那么CPU中止现有中断处理程序，转去执行较高级别的中断处理程序。  </p>
+<h4 id="中断返回"><a href="#中断返回" class="headerlink" title="中断返回"></a>中断返回</h4><p>中断子程序的最后一条汇编指令必须是IRET中断返回指令。该指令的作用是将保存在堆栈中断点的偏移地址和段地址弹出，修改IP和CS寄存器；再把保存在堆栈中的PSW各标志位弹到FLAGS寄存器中，然后返回到被中断的程序去继续执行。</p>
+<p>中断过程和子程序调用CALL指令和RET返回指令过程类似，但它们也有不同之处。<br>中断的特点：<br>（1）除了用堆栈保存断点的返回地址CS:IP之外，还保存了标志寄存器PSW的内容；<br>（2）在中断发生时，CPU自动清除了IF位和TF位。使执行中断处理过程中，避免再次发生外部中断的干扰。<br>（3）中断返回 指令IRET执行时，除了将断点地址从堆栈中弹出，还将栈中保存的标志位放入标志寄存器FLAGS。</p>
+<h2 id="中断设置"><a href="#中断设置" class="headerlink" title="中断设置"></a>中断设置</h2><h3 id="设置中断向量"><a href="#设置中断向量" class="headerlink" title="设置中断向量"></a>设置中断向量</h3><p>将在DS:DX中的中断向量写入中断向量表中。<br>格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AH=25H </span><br><span class="line">AL=中断类型号</span><br><span class="line">DS:DX=中断向量</span><br><span class="line">INT 21H </span><br></pre></td></tr></table></figure>
+
+<h3 id="取中断向量"><a href="#取中断向量" class="headerlink" title="取中断向量"></a>取中断向量</h3><p>从中断向量表中取出中断向量放入ES:BX中。<br>格式：  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AH=35H</span><br><span class="line">AL=中断类型号</span><br><span class="line">INT 21H </span><br></pre></td></tr></table></figure>
+
+<h3 id="中断驻留"><a href="#中断驻留" class="headerlink" title="中断驻留"></a>中断驻留</h3><p>中断驻留是一种特殊的退出程序功能，它在退出前保留程序占用的内存，使这些内存单元不被其它程序覆盖或占用。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AH=31H</span><br><span class="line">AL=0</span><br><span class="line">DX=驻留程序长度</span><br><span class="line">INT 21H</span><br></pre></td></tr></table></figure>
+<p>AL&#x3D;0表示返回码</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">;9-1.asm  笑脸中断程序INT 60H,采用驻留。</span><br><span class="line">.model small</span><br><span class="line">.stack</span><br><span class="line">.code</span><br><span class="line">    mess1 db 0ah,0dh,&#x27;enter interrupt!&#x27;,0ah,0dh,&#x27;$&#x27;</span><br><span class="line">    mess2 db &#x27;exit interrupt!$&#x27;</span><br><span class="line">    mess3 db 0ah,0dh,&#x27;Continue or Quit(c/q)?$&#x27;</span><br><span class="line">;主程序</span><br><span class="line">main proc far</span><br><span class="line">start:</span><br><span class="line">    mov ax,@code			</span><br><span class="line">    mov ds,ax</span><br><span class="line"></span><br><span class="line">    ;设置新的中断向量</span><br><span class="line">    mov dx,offset smile_face		;获得中断子程序偏移地址</span><br><span class="line">    mov ax,seg smile_face		;获得中断子程序段地址</span><br><span class="line">    mov ds,ax</span><br><span class="line">    mov al,60h			;将现在的60H号</span><br><span class="line">    mov ah,25h			;中断向量放入中断向量表中</span><br><span class="line">    int 21h</span><br><span class="line"></span><br><span class="line">    ;应用部分</span><br><span class="line">    conti:</span><br><span class="line">        mov dx,offset mess1		;显示提示1</span><br><span class="line">        mov ah,9</span><br><span class="line">        int 21h</span><br><span class="line">        int 60h				;触发60H号中断，进入中断子程序执行</span><br><span class="line">        mov dx,offset mess2		;显示提示2</span><br><span class="line">        mov ah,9</span><br><span class="line">        int 21h</span><br><span class="line">        mov dx,offset mess3		;显示提示3</span><br><span class="line">        mov ah,9</span><br><span class="line">        int 21h</span><br><span class="line">        mov ah,1			;键入选择</span><br><span class="line">        int 21h</span><br><span class="line">        cmp al,&#x27;c&#x27;</span><br><span class="line">    je conti</span><br><span class="line"></span><br><span class="line">    ;将中断子程序驻留内存</span><br><span class="line">    mov al,0</span><br><span class="line">    mov ah,31h	     	    ;驻留功能</span><br><span class="line">    mov dx,smiend-smigin+16  ; 中断子程序长度</span><br><span class="line">    int 21h</span><br><span class="line">main endp    		     ;主程序结束</span><br><span class="line"></span><br><span class="line">;中断子程序</span><br><span class="line">smile_face proc far </span><br><span class="line">smigin:</span><br><span class="line">    sti					;开中断</span><br><span class="line">    mov cx,10</span><br><span class="line">    leng:				</span><br><span class="line">        mov dl,01h		;笑脸符号</span><br><span class="line">        mov ah,2</span><br><span class="line">        int 21h</span><br><span class="line">    loop leng</span><br><span class="line">    </span><br><span class="line">    mov dl,0dh			;回车换行</span><br><span class="line">    int 21h</span><br><span class="line">    mov dl,0ah</span><br><span class="line">    int 21h</span><br><span class="line">    cli					;关中断</span><br><span class="line">    Iret				;中断返回</span><br><span class="line">    smiend:nop</span><br><span class="line">smile_face endp </span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<h2 id="BIOS中断"><a href="#BIOS中断" class="headerlink" title="BIOS中断"></a>BIOS中断</h2><ul>
+<li>BIOS主要有几部分：<br>  系统硬件检测和初始化程序；<br>  内中断的中断处理程序；<br>  硬件中断的中断处理程序；<br>  I&#x2F;O设备及接口控制等功能模块。</li>
+</ul>
+<h3 id="屏幕及光标控制-INT-10H"><a href="#屏幕及光标控制-INT-10H" class="headerlink" title="屏幕及光标控制 INT 10H"></a>屏幕及光标控制 INT 10H</h3><h4 id="光标控制"><a href="#光标控制" class="headerlink" title="光标控制"></a>光标控制</h4><p>（1）光标大小设置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AH=01H</span><br><span class="line">CH=光标开始行</span><br><span class="line">CL=光标结束行</span><br><span class="line">INT 10H</span><br></pre></td></tr></table></figure>
+<p>（2）设置光标位置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AH=02H</span><br><span class="line">DH=行号</span><br><span class="line">DL=列号</span><br><span class="line">BH=页号</span><br><span class="line">INT 10H</span><br></pre></td></tr></table></figure>
+<p>（3）读光标位置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AH=03H</span><br><span class="line">BH=页号</span><br><span class="line">INT 10H</span><br></pre></td></tr></table></figure>
+<p>返回值：DH&#x3D;行号，DL&#x3D;列号，CX&#x3D;光标大小 </p>
+<h4 id="卷屏、清屏、开窗口"><a href="#卷屏、清屏、开窗口" class="headerlink" title="卷屏、清屏、开窗口"></a>卷屏、清屏、开窗口</h4><p>（1）选择显示页<br>AH&#x3D;05H<br>AL&#x3D;页号<br>INT 10H<br>（2）屏幕开窗口</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AH=06H</span><br><span class="line">AL=0</span><br><span class="line">BH=窗口颜色属性</span><br><span class="line">CH=左上角行号</span><br><span class="line">CL=左上角列号</span><br><span class="line">DH=右下角行号</span><br><span class="line">DL=右下角列号</span><br><span class="line">INT 10H</span><br></pre></td></tr></table></figure>
+<p>（3）屏幕上卷</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">AH=06H</span><br><span class="line">AL=上卷行数</span><br><span class="line">BH=卷入行属性</span><br><span class="line">CH=左上角行号</span><br><span class="line">CL=左上角列号</span><br><span class="line">DH=右下角行号</span><br><span class="line">DL=右下角列号   </span><br><span class="line">INT 10H</span><br></pre></td></tr></table></figure>
+<p>（4）屏幕下卷<br>AH&#x3D;07H<br>其余同屏幕上卷</p>
+<h4 id="字符读与显示"><a href="#字符读与显示" class="headerlink" title="字符读与显示"></a>字符读与显示</h4><p>（1）读当前光标处字符和属性<br>格式：  AH&#x3D;08H<br>     BH&#x3D;页号<br>      INT 10H<br>返回值：AH&#x3D;属性，AL&#x3D;字符<br>（2）显示多个带属性的相同字符<br>格式：  AH&#x3D;09H<br>         BH&#x3D;页号<br>         CX&#x3D;字符重复个数<br>         AL&#x3D;字符<br>         BL&#x3D;属性<br>      INT 10H<br>（3）显示多个无属性的相同字符<br>格式：AH&#x3D;0AH<br>       BH&#x3D;页号<br>       CX&#x3D;字符重复个数<br>       AL&#x3D;字符<br>       INT 10H<br>（4）显示一个字符<br>格式：AH&#x3D;0EH<br>          AL&#x3D;字符<br>          INT 10H<br>（5）显示字符串<br>格式：AH&#x3D;13H<br>       ES:BP&#x3D;字符串地址<br>     CX&#x3D;字符串长度<br>       BH&#x3D;页号<br>      AL&#x3D;0，BL&#x3D;属性，光标返回开始处<br>      AL&#x3D;1，BL&#x3D;属性，光标跟随字符移动<br>     AL&#x3D;2，要求字符和属性一起定义，光标返回开始处<br>       AL&#x3D;3，字符和属性一起定义，光标跟随字符移动<br>       INT 10H</p>
+<h3 id="键盘中断-INT-16H"><a href="#键盘中断-INT-16H" class="headerlink" title="键盘中断 INT 16H"></a>键盘中断 INT 16H</h3><p>8086系统对键盘的处理分为两个层次。硬件接口处理（9号键盘中断）和BIOS系统键盘处理（INT 16H）。 </p>
+<h4 id="硬件接口处理"><a href="#硬件接口处理" class="headerlink" title="硬件接口处理"></a>硬件接口处理</h4><p>当键盘上的按键按下时，通过8259A中断控制器向CPU发出9号硬件中断请求。如果此时中断允许标志位IF为1，CPU会响应此中断，转到9号硬件键盘中断处理程序去执行。 </p>
+<h4 id="BIOS系统键盘处理"><a href="#BIOS系统键盘处理" class="headerlink" title="BIOS系统键盘处理"></a>BIOS系统键盘处理</h4><p>（1）从键盘读出一个字符<br>格式：AH&#x3D;00H<br>           INT 16H<br>返回值：AL&#x3D;字符ASCII码，AH&#x3D;扫描码。<br>功能：从键盘缓冲区队首取出字符送入AX，同时缓冲区后续字符前移。<br>（2）判断并读出键盘字符<br>格式：AH&#x3D;01H<br>           INT 16H<br>返回值：ZF&#x3D;0，AL&#x3D;字符ASCII码，AH&#x3D;扫描码；ZF&#x3D;1，缓冲区为空。<br>功能：可从ZF值判断键盘缓冲区中是否有按键字符。<br>（3）读取键盘状态<br>格式：AH&#x3D;02H<br>           INT 16H<br>返回值：AL&#x3D;键盘状态字节。<br>功能：读取控制键等特殊功能键的状态。<br>（4）软件模拟按键<br>格式：AH&#x3D;05H<br>          CL&#x3D;键的ASCII码<br>          CH&#x3D;键的扫描码<br>          INT 16H<br>功能：在键盘缓冲区队尾单元写入一个字符，模拟按键按下。 </p>
+<h3 id="时钟中断-INT-1AH"><a href="#时钟中断-INT-1AH" class="headerlink" title="时钟中断 INT 1AH"></a>时钟中断 INT 1AH</h3><p>（1）读取时钟计数器当前值<br>格式：AH&#x3D;00H<br>           INT 1AH<br>返回值：CX&#x3D;计数值高字，DX&#x3D;计数值低字。<br>（2）设置时钟计数器<br>格式：AH&#x3D;01H<br>           CX&#x3D;计数值高字<br>           DX&#x3D;计数值低字<br>           INT 1AH<br>注意：此项操作会修改系统时钟。 </p>
+<h2 id="DOS中断"><a href="#DOS中断" class="headerlink" title="DOS中断"></a>DOS中断</h2><h3 id="显示功能调用"><a href="#显示功能调用" class="headerlink" title="显示功能调用"></a>显示功能调用</h3><h4 id="显示一个字符"><a href="#显示一个字符" class="headerlink" title="显示一个字符"></a>显示一个字符</h4><p>格式1：AH&#x3D;02H<br>            DL&#x3D;字符<br>            INT 21H<br>功能：屏幕上显示一个字符，光标跟随字符移动。检验DL是否为Ctrl_Break。<br>格式2：AH&#x3D;06H<br>           DL&#x3D;字符<br>           INT 21H<br>功能：屏幕上显示一个字符，光标跟随字符移动。不检验Ctrl_Break。</p>
+<h4 id="显示一串字符"><a href="#显示一串字符" class="headerlink" title="显示一串字符"></a>显示一串字符</h4><p>格式：AH&#x3D;09H<br>           DS:DX&#x3D;字符串地址<br>           INT 21H<br>功能：屏幕上显示一串字符，光标跟随字符移动。要求字符串必须以$结尾。</p>
+<h4 id="打印一个字符"><a href="#打印一个字符" class="headerlink" title="打印一个字符"></a>打印一个字符</h4><p>格式：AH&#x3D;05H<br>           DL&#x3D;字符<br>           INT 21H<br>功能：把一个字符送到打印机上打印出来。 </p>
+<h3 id="键盘功能调用"><a href="#键盘功能调用" class="headerlink" title="键盘功能调用"></a>键盘功能调用</h3><h4 id="键入一个字符并回显"><a href="#键入一个字符并回显" class="headerlink" title="键入一个字符并回显"></a>键入一个字符并回显</h4><p>格式：AH&#x3D;01H<br>           INT 21H<br>返回值：AL&#x3D;字符的ASCII码。</p>
+<h4 id="键入一个字符不回显"><a href="#键入一个字符不回显" class="headerlink" title="键入一个字符不回显"></a>键入一个字符不回显</h4><p>格式1：AH&#x3D;07H<br>           INT 21H<br>返回值：AL&#x3D;字符的ASCII码。不检验键入的字符是否为Ctrl_Break。<br>格式2：AH&#x3D;08H<br>              INT 21H<br>返回值：AL&#x3D;字符的ASCII码。对键入的字符检验是否为Ctrl_Break。 </p>
+<h4 id="键入一串字符保存到缓冲区"><a href="#键入一串字符保存到缓冲区" class="headerlink" title="键入一串字符保存到缓冲区"></a>键入一串字符保存到缓冲区</h4><p>格式：AH&#x3D;0AH<br>           DS:DX&#x3D;字节缓冲区首址<br>      INT 21H<br>要求：缓冲区的第1个字节单元为允许输入的最大字符数，第2个单元为实际键入个数，从第3个单元开始存放键入字符。</p>
+<h4 id="读键盘状态"><a href="#读键盘状态" class="headerlink" title="读键盘状态"></a>读键盘状态</h4><p>格式：AH&#x3D;0BH<br>      INT 21H<br>返回值：有键入，AL&#x3D;0FFH；无键入，AL&#x3D;00H。</p>
+<h4 id="清除键盘缓冲区并调用"><a href="#清除键盘缓冲区并调用" class="headerlink" title="清除键盘缓冲区并调用"></a>清除键盘缓冲区并调用</h4><p>格式：AH&#x3D;0CH<br>        AL&#x3D;功能号<br>            INT 21H<br>功能：清除键盘缓冲区的同时，调用键盘输入功能（1、7、8、10功能号）。使用此功能可以在输入一个字符之前将以前输入的字符从缓冲区清除。</p>
+<h3 id="日期、时间功能调用"><a href="#日期、时间功能调用" class="headerlink" title="日期、时间功能调用"></a>日期、时间功能调用</h3><h4 id="读取系统日期"><a href="#读取系统日期" class="headerlink" title="读取系统日期"></a>读取系统日期</h4><p>格式：AH&#x3D;2AH<br>           INT 21H<br>返回值：CX&#x3D;年，DH&#x3D;月，DL&#x3D;日，AL&#x3D;星期。日期值为十六进制数。</p>
+<h4 id="设置系统日期"><a href="#设置系统日期" class="headerlink" title="设置系统日期"></a>设置系统日期</h4><p>格式：AH&#x3D;2BH<br>          CX&#x3D;年<br>           DH&#x3D;月<br>           DL&#x3D;日<br>           AL&#x3D;星期<br>           INT 21H<br>返回值：AL&#x3D;00，设置成功；AL&#x3D;0FFH，无效。</p>
+<h4 id="读取系统时间"><a href="#读取系统时间" class="headerlink" title="读取系统时间"></a>读取系统时间</h4><p>格式：AH&#x3D;2CH<br>           INT 21H<br>返回值：CH&#x3D;小时（0～23），CL&#x3D;分（0～59），DH&#x3D;秒（0～59），DL&#x3D;百分秒（0～99）。</p>
+<h4 id="设置系统时间"><a href="#设置系统时间" class="headerlink" title="设置系统时间"></a>设置系统时间</h4><p>格式：AH&#x3D;2DH<br>      CH&#x3D;小时（0～23）<br>          CL&#x3D;分（0～59）<br>           DH&#x3D;秒（0～59）<br>           DL&#x3D;百分秒（0～99）<br>           INT 21H<br>返回值：AL&#x3D;00，设置成功；AL&#x3D;0FFH，无效。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/8086/">8086</a></div><div class="post_share"><div class="social-share" data-image="/img/Bing/BambooTreesIndia.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B.html"><img class="next-cover" src="/img/loading.gif" data-original="/img/Bing/BambooPanda.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">8086汇编语言：多文件编程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%AD%90%E7%A8%8B%E5%BA%8F.html" title="8086汇编语言：子程序"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/BahamasSpace.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编语言：子程序</div></div></a></div><div><a href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A8086%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%84.html" title="8086汇编：8086寄存器组"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/ArdeAlba.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编：8086寄存器组</div></div></a></div><div><a href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.html" title="8086汇编：基本汇编指令"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/ArromanchesLesBains.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编：基本汇编指令</div></div></a></div><div><a href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B.html" title="8086汇编语言：多文件编程"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/BambooPanda.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编语言：多文件编程</div></div></a></div><div><a href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%BE%AA%E7%8E%AF%E6%8C%87%E4%BB%A4.html" title="8086汇编：循环指令"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/AyutthayaTree.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编：循环指令</div></div></a></div><div><a href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7DEBUG.html" title="8086汇编：调试工具DEBUG"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/ArenalCostaRica.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编：调试工具DEBUG</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/loading.gif" data-original="/img/blog_icon.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Human6sa</div><div class="author-info__description">清朗</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Human6sa"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:1415750220@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">中断的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E4%B8%AD%E6%96%AD"><span class="toc-number">1.1.</span> <span class="toc-text">软件中断</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B1%E4%B8%AD%E6%96%AD%E6%8C%87%E4%BB%A4INT-n%E5%BC%95%E8%B5%B7"><span class="toc-number">1.1.1.</span> <span class="toc-text">由中断指令INT n引起</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B1%E4%BA%8ECPU%E7%9A%84%E6%9F%90%E4%BA%9B%E9%94%99%E8%AF%AF%E5%BC%95%E8%B5%B7"><span class="toc-number">1.1.2.</span> <span class="toc-text">由于CPU的某些错误引起</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F-DEBUG-%E8%AE%BE%E7%BD%AE%E7%9A%84%E4%B8%AD%E6%96%AD"><span class="toc-number">1.1.3.</span> <span class="toc-text">为调试程序(DEBUG)设置的中断</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E4%B8%AD%E6%96%AD"><span class="toc-number">1.2.</span> <span class="toc-text">硬件中断</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E5%B1%8F%E8%94%BD%E4%B8%AD%E6%96%AD"><span class="toc-number">1.2.1.</span> <span class="toc-text">不可屏蔽中断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E5%B1%8F%E8%94%BD%E4%B8%AD%E6%96%AD"><span class="toc-number">1.2.2.</span> <span class="toc-text">可屏蔽中断</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E7%B1%BB%E5%9E%8B%E4%B8%8E%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">中断类型与中断向量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">中断类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text">中断向量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">1.3.3.</span> <span class="toc-text">中断优先级</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E8%BF%87%E7%A8%8B"><span class="toc-number">1.4.</span> <span class="toc-text">中断过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%93%8D%E5%BA%94%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.4.1.</span> <span class="toc-text">中断响应条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86"><span class="toc-number">1.4.2.</span> <span class="toc-text">中断处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E8%BF%94%E5%9B%9E"><span class="toc-number">1.4.3.</span> <span class="toc-text">中断返回</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">中断设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F"><span class="toc-number">2.1.</span> <span class="toc-text">设置中断向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E4%B8%AD%E6%96%AD%E5%90%91%E9%87%8F"><span class="toc-number">2.2.</span> <span class="toc-text">取中断向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E9%A9%BB%E7%95%99"><span class="toc-number">2.3.</span> <span class="toc-text">中断驻留</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.4.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BIOS%E4%B8%AD%E6%96%AD"><span class="toc-number">3.</span> <span class="toc-text">BIOS中断</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%8F%E5%B9%95%E5%8F%8A%E5%85%89%E6%A0%87%E6%8E%A7%E5%88%B6-INT-10H"><span class="toc-number">3.1.</span> <span class="toc-text">屏幕及光标控制 INT 10H</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%89%E6%A0%87%E6%8E%A7%E5%88%B6"><span class="toc-number">3.1.1.</span> <span class="toc-text">光标控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%B7%E5%B1%8F%E3%80%81%E6%B8%85%E5%B1%8F%E3%80%81%E5%BC%80%E7%AA%97%E5%8F%A3"><span class="toc-number">3.1.2.</span> <span class="toc-text">卷屏、清屏、开窗口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E8%AF%BB%E4%B8%8E%E6%98%BE%E7%A4%BA"><span class="toc-number">3.1.3.</span> <span class="toc-text">字符读与显示</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%AE%E7%9B%98%E4%B8%AD%E6%96%AD-INT-16H"><span class="toc-number">3.2.</span> <span class="toc-text">键盘中断 INT 16H</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E6%8E%A5%E5%8F%A3%E5%A4%84%E7%90%86"><span class="toc-number">3.2.1.</span> <span class="toc-text">硬件接口处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BIOS%E7%B3%BB%E7%BB%9F%E9%94%AE%E7%9B%98%E5%A4%84%E7%90%86"><span class="toc-number">3.2.2.</span> <span class="toc-text">BIOS系统键盘处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E4%B8%AD%E6%96%AD-INT-1AH"><span class="toc-number">3.3.</span> <span class="toc-text">时钟中断 INT 1AH</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DOS%E4%B8%AD%E6%96%AD"><span class="toc-number">4.</span> <span class="toc-text">DOS中断</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%8A%9F%E8%83%BD%E8%B0%83%E7%94%A8"><span class="toc-number">4.1.</span> <span class="toc-text">显示功能调用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="toc-number">4.1.1.</span> <span class="toc-text">显示一个字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E4%B8%80%E4%B8%B2%E5%AD%97%E7%AC%A6"><span class="toc-number">4.1.2.</span> <span class="toc-text">显示一串字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="toc-number">4.1.3.</span> <span class="toc-text">打印一个字符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%AE%E7%9B%98%E5%8A%9F%E8%83%BD%E8%B0%83%E7%94%A8"><span class="toc-number">4.2.</span> <span class="toc-text">键盘功能调用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%AE%E5%85%A5%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%B9%B6%E5%9B%9E%E6%98%BE"><span class="toc-number">4.2.1.</span> <span class="toc-text">键入一个字符并回显</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%AE%E5%85%A5%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%8D%E5%9B%9E%E6%98%BE"><span class="toc-number">4.2.2.</span> <span class="toc-text">键入一个字符不回显</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%AE%E5%85%A5%E4%B8%80%E4%B8%B2%E5%AD%97%E7%AC%A6%E4%BF%9D%E5%AD%98%E5%88%B0%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-number">4.2.3.</span> <span class="toc-text">键入一串字符保存到缓冲区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E9%94%AE%E7%9B%98%E7%8A%B6%E6%80%81"><span class="toc-number">4.2.4.</span> <span class="toc-text">读键盘状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%85%E9%99%A4%E9%94%AE%E7%9B%98%E7%BC%93%E5%86%B2%E5%8C%BA%E5%B9%B6%E8%B0%83%E7%94%A8"><span class="toc-number">4.2.5.</span> <span class="toc-text">清除键盘缓冲区并调用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E3%80%81%E6%97%B6%E9%97%B4%E5%8A%9F%E8%83%BD%E8%B0%83%E7%94%A8"><span class="toc-number">4.3.</span> <span class="toc-text">日期、时间功能调用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%97%A5%E6%9C%9F"><span class="toc-number">4.3.1.</span> <span class="toc-text">读取系统日期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E6%97%A5%E6%9C%9F"><span class="toc-number">4.3.2.</span> <span class="toc-text">设置系统日期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="toc-number">4.3.3.</span> <span class="toc-text">读取系统时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4"><span class="toc-number">4.3.4.</span> <span class="toc-text">设置系统时间</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%B8%AD%E6%96%AD.html" title="8086汇编语言：中断"><img src="/img/loading.gif" data-original="/img/Bing/BambooTreesIndia.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编语言：中断"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%B8%AD%E6%96%AD.html" title="8086汇编语言：中断">8086汇编语言：中断</a><time datetime="2024-08-25T14:25:46.000Z" title="发表于 2024-08-25 22:25:46">2024-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B.html" title="8086汇编语言：多文件编程"><img src="/img/loading.gif" data-original="/img/Bing/BambooPanda.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编语言：多文件编程"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B.html" title="8086汇编语言：多文件编程">8086汇编语言：多文件编程</a><time datetime="2024-08-25T13:52:08.000Z" title="发表于 2024-08-25 21:52:08">2024-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%AD%90%E7%A8%8B%E5%BA%8F.html" title="8086汇编语言：子程序"><img src="/img/loading.gif" data-original="/img/Bing/BahamasSpace.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编语言：子程序"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%AD%90%E7%A8%8B%E5%BA%8F.html" title="8086汇编语言：子程序">8086汇编语言：子程序</a><time datetime="2024-08-25T13:47:50.000Z" title="发表于 2024-08-25 21:47:50">2024-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%BE%AA%E7%8E%AF%E6%8C%87%E4%BB%A4.html" title="8086汇编：循环指令"><img src="/img/loading.gif" data-original="/img/Bing/AyutthayaTree.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编：循环指令"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%BE%AA%E7%8E%AF%E6%8C%87%E4%BB%A4.html" title="8086汇编：循环指令">8086汇编：循环指令</a><time datetime="2024-08-25T12:12:01.000Z" title="发表于 2024-08-25 20:12:01">2024-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%88%86%E6%94%AF%E6%8C%87%E4%BB%A4.html" title="8086汇编：分支指令"><img src="/img/loading.gif" data-original="/img/Bing/AvilaSpain.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编：分支指令"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%88%86%E6%94%AF%E6%8C%87%E4%BB%A4.html" title="8086汇编：分支指令">8086汇编：分支指令</a><time datetime="2024-08-25T09:09:05.000Z" title="发表于 2024-08-25 17:09:05">2024-08-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/Bing/BambooTreesIndia.webp')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Human6sa</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">「清醒地思考，勇敢地前进」</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'wSHDzkm9xBpfpeRdREXPp7pX-gzGzoHsz',
+      appKey: '5Fi5DVNozbIk47fUlXws7SZk',
+      avatar: 'retro',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="/js/rdmbkg.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body></html>

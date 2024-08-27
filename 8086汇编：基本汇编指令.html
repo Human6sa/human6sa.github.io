@@ -1,0 +1,414 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>8086汇编：基本汇编指令 | Human6sa's Blog</title><meta name="keywords" content="8086"><meta name="author" content="Human6sa"><meta name="copyright" content="Human6sa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="伪指令段定义伪指令段定义伪指令可用来定义各种类型的段。格式如下： 段名  SEGMENT  [类型参数]段名  ENDS  SEGMENT和ENDS必须成对使用，表示段的开始和结束。 ASSUME伪指令ASSUME伪指令用于指明段寄存器与段的对应关系，格式为： ASSUME 段寄存器:段名,[段寄存器:段名,…]  如果不使用ASSUME伪指令，系统就无法获知用户定义的段都有哪些，进而就不能正确地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8086汇编：基本汇编指令">
+<meta property="og:url" content="https://human6sa.github.io/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.html">
+<meta property="og:site_name" content="Human6sa&#39;s Blog">
+<meta property="og:description" content="伪指令段定义伪指令段定义伪指令可用来定义各种类型的段。格式如下： 段名  SEGMENT  [类型参数]段名  ENDS  SEGMENT和ENDS必须成对使用，表示段的开始和结束。 ASSUME伪指令ASSUME伪指令用于指明段寄存器与段的对应关系，格式为： ASSUME 段寄存器:段名,[段寄存器:段名,…]  如果不使用ASSUME伪指令，系统就无法获知用户定义的段都有哪些，进而就不能正确地">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://human6sa.github.io/img/Bing/ArromanchesLesBains.webp">
+<meta property="article:published_time" content="2024-08-25T08:57:24.000Z">
+<meta property="article:modified_time" content="2024-08-27T14:06:01.050Z">
+<meta property="article:author" content="Human6sa">
+<meta property="article:tag" content="8086">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://human6sa.github.io/img/Bing/ArromanchesLesBains.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://human6sa.github.io/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="&lt;meta name=&quot;baidu-site-verification&quot; content=&quot;code-fyZkyngDgY&quot; /&gt;"/><link rel="manifest" href="/img/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/img/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/pwa/16.png"/><link rel="mask-icon" href="/img/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?5eb311ccfb724fdde2405cdc80110d7a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="/css/font.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '8086汇编：基本汇编指令',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-27 22:06:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="baidu-site-verification" content="code-fyZkyngDgY" /><link rel="stylesheet" href="/js/baidutongji.js"><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/highlight.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/loading.gif" data-original="/img/blog_icon.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/resources/"><i class="fa-fw fas fa-cloud-download-alt"></i><span> 资源</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Bing/ArromanchesLesBains.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Human6sa's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/resources/"><i class="fa-fw fas fa-cloud-download-alt"></i><span> 资源</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">8086汇编：基本汇编指令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-25T08:57:24.000Z" title="发表于 2024-08-25 16:57:24">2024-08-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-27T14:06:01.050Z" title="更新于 2024-08-27 22:06:01">2024-08-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B1%87%E7%BC%96/">汇编</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4.html" data-flag-title="8086汇编：基本汇编指令"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="伪指令"><a href="#伪指令" class="headerlink" title="伪指令"></a>伪指令</h2><h3 id="段定义伪指令"><a href="#段定义伪指令" class="headerlink" title="段定义伪指令"></a>段定义伪指令</h3><p>段定义伪指令可用来定义各种类型的段。<br>格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">段名  SEGMENT  [类型参数]</span><br><span class="line">段名  ENDS</span><br></pre></td></tr></table></figure>
+
+<p>SEGMENT和ENDS必须成对使用，表示段的开始和结束。</p>
+<h3 id="ASSUME伪指令"><a href="#ASSUME伪指令" class="headerlink" title="ASSUME伪指令"></a>ASSUME伪指令</h3><p>ASSUME伪指令用于指明段寄存器与段的对应关系，格式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ASSUME 段寄存器:段名,[段寄存器:段名,…]</span><br></pre></td></tr></table></figure>
+
+<p>如果不使用ASSUME伪指令，系统就无法获知用户定义的段都有哪些，进而就不能正确地划分段。</p>
+<h3 id="数据定义伪指令"><a href="#数据定义伪指令" class="headerlink" title="数据定义伪指令"></a>数据定义伪指令</h3><p>数据定义伪指令格式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[存储单元名]  DB（或DW、DD等伪指令） 操作数</span><br></pre></td></tr></table></figure>
+
+<p>其中：<br>（1）存储单元可以起名也可以不要名字<br>（2）数据定义伪指令<br>            DB      定义字节单元<br>            DW    定义字单元<br>            DD    定义双字单元<br>            DQ    定义四字单元<br>            DT    定义十字节单元</p>
+<ul>
+<li>操作数用于指出存储单元的内容即该单元的值。 </li>
+<li>一条数据定义伪指令可以给多个存储单元赋值。</li>
+<li>确定存储单元的内容时要与存储单元的属性一致。</li>
+</ul>
+<h3 id="赋值伪指令"><a href="#赋值伪指令" class="headerlink" title="赋值伪指令"></a>赋值伪指令</h3><ul>
+<li>在程序中多次出现同一个表达式时，可以用EQU定义一个符号来代表表达式，以简化书写。</li>
+<li>与EQU伪操作相似，等号 &#x3D; 伪操作也可以给表达式赋值(只能是数值表达式)，允许对一个符号多次重复定义；而EQU则不允许。<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CONT EQU 125*3.14</span><br><span class="line">STR EQU &#x27;RIGHT&#x27;</span><br><span class="line">SUM EQU 0</span><br><span class="line">BUFF=56</span><br><span class="line">PASS=2034H</span><br><span class="line">BUFF=56H</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="设置偏移地址伪指令"><a href="#设置偏移地址伪指令" class="headerlink" title="设置偏移地址伪指令"></a>设置偏移地址伪指令</h3><p>当前的偏移地址可以用ORG伪指令定义。</p>
+<p>如果用在数据段中，该指令可以确定存储单元的偏移地址，例如将X单元的偏移地址定义为0020H，该单元的内容为5，即(DS:0020H)&#x3D;5。伪指令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA  SEGMENT</span><br><span class="line">	ORG  0020H</span><br><span class="line">	X DW 5</span><br><span class="line">DATA  ENDS</span><br></pre></td></tr></table></figure>
+<p>如果用在代码段中，可从指定的单元开始存放并执行指令。<br>例如从代码段的100H开始执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ORG 100H</span><br><span class="line">START:MOV AX,X      ;标号START设置为100H</span><br><span class="line">MOV BX,Y</span><br><span class="line">ADD AX,BX</span><br></pre></td></tr></table></figure>
+
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><h4 id="回送偏移地址值OFFSET"><a href="#回送偏移地址值OFFSET" class="headerlink" title="回送偏移地址值OFFSET"></a>回送偏移地址值OFFSET</h4><p> <code>MOV BX, OFFSET X            ;将X单元的偏移地址传送给BX</code><br> <code>MOV AX, OFFSET START        ;将标号START的偏移地址传送给AX</code></p>
+<h4 id="回送段地址值SEG"><a href="#回送段地址值SEG" class="headerlink" title="回送段地址值SEG"></a>回送段地址值SEG</h4><p><code>MOV BX,SEG X             ;将X单元的段地址传送给BX</code><br><code>MOV AX, SEG START          ;将标号START的段地址传送给AX</code></p>
+<h4 id="类型回送操作符TYPE"><a href="#类型回送操作符TYPE" class="headerlink" title="类型回送操作符TYPE"></a>类型回送操作符TYPE</h4><p><code>MOV BX,TYPE X          ;如果X是字节单元，则回送值为1，即  BX←1；</code><br><code>                       ;若是字单元，值为2，双字单元，值为4</code></p>
+<h4 id="属性操作符PTR"><a href="#属性操作符PTR" class="headerlink" title="属性操作符PTR"></a>属性操作符PTR</h4><p><code>MOV BYTE PTR [BX],10       ；定义目的操作数为字节单元</code><br><code>MOV WORD PTR [SI],20      ；定义目的操作数为字单元</code></p>
+<h4 id="类型操作符LABEL"><a href="#类型操作符LABEL" class="headerlink" title="类型操作符LABEL"></a>类型操作符LABEL</h4><p><code>X  LABEL BYTE          ;X单元的类型定义为BYTE字节型，也可以定义为WORD字型、DWORD双字型等</code></p>
+<h2 id="基本汇编指令"><a href="#基本汇编指令" class="headerlink" title="基本汇编指令"></a>基本汇编指令</h2><h3 id="数据、栈及查表"><a href="#数据、栈及查表" class="headerlink" title="数据、栈及查表"></a>数据、栈及查表</h3><h4 id="MOV传送指令"><a href="#MOV传送指令" class="headerlink" title="MOV传送指令"></a>MOV传送指令</h4><p>MOV传送指令是双操作数指令，SRC为源操作数、DST为目的操作数。<br>格式：<code>MOV DST,SRC</code></p>
+<p><strong>MOV指令用法：</strong></p>
+<ul>
+<li>MOV 寄存器，寄存器        <code>MOV AX, BX</code></li>
+<li>MOV寄存器，立即数         <code>MOV AX, 20</code></li>
+<li>MOV 寄存器，存储单元    <code>MOV AX, [BX]</code></li>
+<li>MOV 寄存器，段寄存器    <code>MOV AX, CS</code></li>
+<li>MOV 存储单元，寄存器    <code>MOV [DI], BX</code></li>
+<li>MOV存储单元，立即数    <code>MOV WORD PTR[BI][DI], 28</code></li>
+<li>MOV 存储单元，段寄存器    <code>MOV [BP], DS</code></li>
+<li>MOV 段寄存器，寄存器         <code>MOV DS, AX</code></li>
+<li>MOV段寄存器，存储单元      <code>MOV SS, [BX]</code></li>
+</ul>
+<p>下面列出的指令是非法的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AX,BL           ;操作数类型不匹配</span><br><span class="line">MOV 1234H , CX      ;目的操作数不能是立即数</span><br><span class="line">MOV [BX],[SI]       ;两个操作数不能都是存储单元</span><br><span class="line">MOV [BX],20         ;目的操作数属性不确定</span><br><span class="line">MOV CS,AX           ;CS不允许赋值</span><br><span class="line">MOV DS,1000 H       ;DS、ES、SS等段寄存器不允许用立即数赋值</span><br></pre></td></tr></table></figure>
+
+<h4 id="数据交换指令XCHG"><a href="#数据交换指令XCHG" class="headerlink" title="数据交换指令XCHG"></a>数据交换指令XCHG</h4><p>XCHG指令是双操作数指令，功能是将两个操作数的内容互换。要求必须有一个操作数是寄存器，而且两个操作数的属性必须一致。操作数不能为立即数。<br>格式：&#96;XCHG  OPR1,OPR2</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">XCHG  AX,BX     ;寄存器AX和BX的内容互换</span><br><span class="line">XCHG  [BX],AL   ;AL寄存器的内容和字节型存储单元的内容互换</span><br><span class="line">XCHG  CX,X[SI]  ;CX寄存器的内容和字型存储单元的内容互换</span><br></pre></td></tr></table></figure>
+
+<h4 id="进栈和出栈指令"><a href="#进栈和出栈指令" class="headerlink" title="进栈和出栈指令"></a>进栈和出栈指令</h4><p> <code>PUSH  SRC</code><br> <code>POP  DST</code></p>
+<h4 id="查表转换指令XLAT"><a href="#查表转换指令XLAT" class="headerlink" title="查表转换指令XLAT"></a>查表转换指令XLAT</h4><p>格式：<code>XLAT</code></p>
+<ul>
+<li>使用 <code>AL</code> 的值作为偏移量，从查找表的基址 <code>BX</code> 开始计算内存地址 <code>BX + AL</code>。</li>
+<li>将内存地址 <code>BX + AL</code> 处的字节值加载到 <code>AL</code> 中。</li>
+</ul>
+<h3 id="逻辑地址的获得"><a href="#逻辑地址的获得" class="headerlink" title="逻辑地址的获得"></a>逻辑地址的获得</h3><h4 id="LEA有效地址传送指令（Load-Effective-Address）"><a href="#LEA有效地址传送指令（Load-Effective-Address）" class="headerlink" title="LEA有效地址传送指令（Load Effective Address）"></a>LEA有效地址传送指令（Load Effective Address）</h4><p>格式：<code>LEA 寄存器,存储单元</code><br>功能：将存储单元的有效地址传送给寄存器。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LEA  BX，TABLE</span><br><span class="line">LEA  DX，[BX]</span><br><span class="line">LEA  BX，COUNT[SI]</span><br></pre></td></tr></table></figure>
+<h4 id="LDS-Load-DS-数据段地址传送指令"><a href="#LDS-Load-DS-数据段地址传送指令" class="headerlink" title="LDS(Load DS)数据段地址传送指令"></a>LDS(Load DS)数据段地址传送指令</h4><p>格式：<code>LDS 寄存器,双字存储单元</code><br>功能：将双字单元中保存的低字送入寄存器，高字传送给DS数据段寄存器。</p>
+<h4 id="LES-Load-ES-附加段地址传送指令"><a href="#LES-Load-ES-附加段地址传送指令" class="headerlink" title="LES(Load ES)附加段地址传送指令"></a>LES(Load ES)附加段地址传送指令</h4><p>格式：<code>LES 寄存器,双字存储单元</code><br>功能：将双字单元中保存的低字送入寄存器，高字传送给ES附加段寄存器。</p>
+<h3 id="算术运算类指令"><a href="#算术运算类指令" class="headerlink" title="算术运算类指令"></a>算术运算类指令</h3><h4 id="加法类"><a href="#加法类" class="headerlink" title="加法类"></a>加法类</h4><ul>
+<li>ADD加法指令<br>  格式：<code>ADD  DST,SRC</code></li>
+<li>ADC带进位加法指令(Add with Carry)<br>  格式：<code>ADC  DST,SRC</code><br>  源操作数加上目的操作数再加上进位标志CF，结果放入目的操作数DST。</li>
+<li>INC加1指令(Increase 1)<br>  格式：<code>INC  OPR</code><br>  不影响CF，但影响其它状态标志位。</li>
+</ul>
+<h4 id="减法类"><a href="#减法类" class="headerlink" title="减法类"></a>减法类</h4><ul>
+<li>SUB减法指令(Substract)<br>  <code>格式：SUB  DST,SRC</code></li>
+<li>SBB带借位减法指令(Substract with Borrow)<br>  格式：<code>SBB  DST,SRC</code><br>  功能：目的操作数减去源操作数后再减去进位标志CF，结果放入目的操作数DST。</li>
+<li>DEC减1指令(Decrease 1)<br>  格式：<code>DEC  OPR</code><br>  功能：将操作数OPR减1</li>
+<li>NEG求补指令(Negative)<br>  格式：<code>NEG  OPR</code><br>  功能：将操作数求反加1。即求补操作，对正数的补码求补变为其负数的补码，对负数的补码求补变为其正数的补码。<br>  利用NEG指令可以求负数的绝对值。 </li>
+<li>CMP比较指令<br>  格式：<code>CMP OPR1,OPR2</code><br>  功能：将两个操作数作相减运算，结果不回送，改变标志位。通常后跟条件转移指令，根据CMP比较之后标志位的值进行转移。</li>
+</ul>
+<h4 id="乘法类"><a href="#乘法类" class="headerlink" title="乘法类"></a>乘法类</h4><ul>
+<li>MUL无符号数乘法指令<br>  （1）字节乘法<br>  格式：MUL  SRC<br>  功能：(AX)←(AL)×(SRC)<br>  （2）字乘法<br>  格式：MUL  SRC<br>  功能：(DX、AX) )←(AX)×(SRC)</li>
+<li>IMUL带符号数乘法指令<br>  执行带符号数乘法指令时，系统将把操作数作为补码进行运算。</li>
+<li>DIV无符号数除法指令<br>  （1）字节除法<br>  格式：DIV  SRC<br>  功能：(AL)←(AX)／(SRC)的商       (AH)←(AX)／(SRC)的余数<br>  （2）字除法<br>  格式：DIV  SRC<br>  功能：(AX)←(DX、AX)／(SRC)的商     (DX)←(DX、AX)／(SRC)的余数</li>
+<li>IDIV带符号数除法指令</li>
+</ul>
+<h2 id="屏幕显示和键盘输入"><a href="#屏幕显示和键盘输入" class="headerlink" title="屏幕显示和键盘输入"></a>屏幕显示和键盘输入</h2><h3 id="DOS功能调用"><a href="#DOS功能调用" class="headerlink" title="DOS功能调用"></a>DOS功能调用</h3><p>键盘输入1个字符：      01号DOS功能调用<br>显示器输出1个字符： 02号DOS功能调用<br>    <code>AH=2</code><br>    <code>DL=字符</code><br>    <code>INT 21H</code><br>    功能：输出DL中的一个字符到显示器的光标处。</p>
+<p>键盘输入缓冲区：       0AH号DOS功能调用<br>    键盘输入字符串<br>    格式：<code>AH=10</code><br>        <code>DS:DX=字节缓冲区首址</code><br>        <code>INT 21H</code><br>    说明：定义缓冲区的第1个字节单元为允许输入的最大字符数，第2个单元为实际键入个数（由系统自动填入），从第3个单元开始存放键入字符。<br>    功能：从键盘输入一串ASCII字符到缓冲区，用“回车”结束输入。若输入字符超过缓冲区能容纳的个数，则系统忽略此字符并响铃警告。 </p>
+<p>显示字符串：                 09号DOS功能调用<br>    显示字符串<br>    格式：<code>AH=9</code><br>        <code>DS:DX=字符串地址</code><br>        <code>INT 21H</code><br>    功能：显示一个以“$”结尾的ASCⅡ码字符串。 </p>
+<p>返回DOS控制：          4CH号DOS功能调用</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/8086/">8086</a></div><div class="post_share"><div class="social-share" data-image="/img/Bing/ArromanchesLesBains.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%88%86%E6%94%AF%E6%8C%87%E4%BB%A4.html"><img class="prev-cover" src="/img/loading.gif" data-original="/img/Bing/AvilaSpain.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">8086汇编：分支指令</div></div></a></div><div class="next-post pull-right"><a href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7DEBUG.html"><img class="next-cover" src="/img/loading.gif" data-original="/img/Bing/ArenalCostaRica.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">8086汇编：调试工具DEBUG</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%B8%AD%E6%96%AD.html" title="8086汇编语言：中断"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/BambooTreesIndia.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编语言：中断</div></div></a></div><div><a href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%AD%90%E7%A8%8B%E5%BA%8F.html" title="8086汇编语言：子程序"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/BahamasSpace.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编语言：子程序</div></div></a></div><div><a href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A8086%E5%AF%84%E5%AD%98%E5%99%A8%E7%BB%84.html" title="8086汇编：8086寄存器组"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/ArdeAlba.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编：8086寄存器组</div></div></a></div><div><a href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B.html" title="8086汇编语言：多文件编程"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/BambooPanda.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编语言：多文件编程</div></div></a></div><div><a href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%BE%AA%E7%8E%AF%E6%8C%87%E4%BB%A4.html" title="8086汇编：循环指令"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/AyutthayaTree.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编：循环指令</div></div></a></div><div><a href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7DEBUG.html" title="8086汇编：调试工具DEBUG"><img class="cover" src="/img/loading.gif" data-original="/img/Bing/ArenalCostaRica.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-25</div><div class="title">8086汇编：调试工具DEBUG</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/loading.gif" data-original="/img/blog_icon.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Human6sa</div><div class="author-info__description">清朗</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Human6sa"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:1415750220@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">伪指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%B5%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text">段定义伪指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASSUME%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="toc-number">1.2.</span> <span class="toc-text">ASSUME伪指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">数据定义伪指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text">赋值伪指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%81%8F%E7%A7%BB%E5%9C%B0%E5%9D%80%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="toc-number">1.5.</span> <span class="toc-text">设置偏移地址伪指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.6.</span> <span class="toc-text">操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E9%80%81%E5%81%8F%E7%A7%BB%E5%9C%B0%E5%9D%80%E5%80%BCOFFSET"><span class="toc-number">1.6.1.</span> <span class="toc-text">回送偏移地址值OFFSET</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E9%80%81%E6%AE%B5%E5%9C%B0%E5%9D%80%E5%80%BCSEG"><span class="toc-number">1.6.2.</span> <span class="toc-text">回送段地址值SEG</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E5%9B%9E%E9%80%81%E6%93%8D%E4%BD%9C%E7%AC%A6TYPE"><span class="toc-number">1.6.3.</span> <span class="toc-text">类型回送操作符TYPE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E6%93%8D%E4%BD%9C%E7%AC%A6PTR"><span class="toc-number">1.6.4.</span> <span class="toc-text">属性操作符PTR</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E6%93%8D%E4%BD%9C%E7%AC%A6LABEL"><span class="toc-number">1.6.5.</span> <span class="toc-text">类型操作符LABEL</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">基本汇编指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E3%80%81%E6%A0%88%E5%8F%8A%E6%9F%A5%E8%A1%A8"><span class="toc-number">2.1.</span> <span class="toc-text">数据、栈及查表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MOV%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="toc-number">2.1.1.</span> <span class="toc-text">MOV传送指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BA%A4%E6%8D%A2%E6%8C%87%E4%BB%A4XCHG"><span class="toc-number">2.1.2.</span> <span class="toc-text">数据交换指令XCHG</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E6%A0%88%E5%92%8C%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4"><span class="toc-number">2.1.3.</span> <span class="toc-text">进栈和出栈指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%A1%A8%E8%BD%AC%E6%8D%A2%E6%8C%87%E4%BB%A4XLAT"><span class="toc-number">2.1.4.</span> <span class="toc-text">查表转换指令XLAT</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%E7%9A%84%E8%8E%B7%E5%BE%97"><span class="toc-number">2.2.</span> <span class="toc-text">逻辑地址的获得</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LEA%E6%9C%89%E6%95%88%E5%9C%B0%E5%9D%80%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4%EF%BC%88Load-Effective-Address%EF%BC%89"><span class="toc-number">2.2.1.</span> <span class="toc-text">LEA有效地址传送指令（Load Effective Address）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LDS-Load-DS-%E6%95%B0%E6%8D%AE%E6%AE%B5%E5%9C%B0%E5%9D%80%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="toc-number">2.2.2.</span> <span class="toc-text">LDS(Load DS)数据段地址传送指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LES-Load-ES-%E9%99%84%E5%8A%A0%E6%AE%B5%E5%9C%B0%E5%9D%80%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="toc-number">2.2.3.</span> <span class="toc-text">LES(Load ES)附加段地址传送指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="toc-number">2.3.</span> <span class="toc-text">算术运算类指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E6%B3%95%E7%B1%BB"><span class="toc-number">2.3.1.</span> <span class="toc-text">加法类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%8F%E6%B3%95%E7%B1%BB"><span class="toc-number">2.3.2.</span> <span class="toc-text">减法类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%98%E6%B3%95%E7%B1%BB"><span class="toc-number">2.3.3.</span> <span class="toc-text">乘法类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%8F%E5%B9%95%E6%98%BE%E7%A4%BA%E5%92%8C%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">屏幕显示和键盘输入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DOS%E5%8A%9F%E8%83%BD%E8%B0%83%E7%94%A8"><span class="toc-number">3.1.</span> <span class="toc-text">DOS功能调用</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%B8%AD%E6%96%AD.html" title="8086汇编语言：中断"><img src="/img/loading.gif" data-original="/img/Bing/BambooTreesIndia.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编语言：中断"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%B8%AD%E6%96%AD.html" title="8086汇编语言：中断">8086汇编语言：中断</a><time datetime="2024-08-25T14:25:46.000Z" title="发表于 2024-08-25 22:25:46">2024-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B.html" title="8086汇编语言：多文件编程"><img src="/img/loading.gif" data-original="/img/Bing/BambooPanda.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编语言：多文件编程"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B.html" title="8086汇编语言：多文件编程">8086汇编语言：多文件编程</a><time datetime="2024-08-25T13:52:08.000Z" title="发表于 2024-08-25 21:52:08">2024-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%AD%90%E7%A8%8B%E5%BA%8F.html" title="8086汇编语言：子程序"><img src="/img/loading.gif" data-original="/img/Bing/BahamasSpace.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编语言：子程序"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%AD%90%E7%A8%8B%E5%BA%8F.html" title="8086汇编语言：子程序">8086汇编语言：子程序</a><time datetime="2024-08-25T13:47:50.000Z" title="发表于 2024-08-25 21:47:50">2024-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%BE%AA%E7%8E%AF%E6%8C%87%E4%BB%A4.html" title="8086汇编：循环指令"><img src="/img/loading.gif" data-original="/img/Bing/AyutthayaTree.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编：循环指令"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%BE%AA%E7%8E%AF%E6%8C%87%E4%BB%A4.html" title="8086汇编：循环指令">8086汇编：循环指令</a><time datetime="2024-08-25T12:12:01.000Z" title="发表于 2024-08-25 20:12:01">2024-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%88%86%E6%94%AF%E6%8C%87%E4%BB%A4.html" title="8086汇编：分支指令"><img src="/img/loading.gif" data-original="/img/Bing/AvilaSpain.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编：分支指令"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%EF%BC%9A%E5%88%86%E6%94%AF%E6%8C%87%E4%BB%A4.html" title="8086汇编：分支指令">8086汇编：分支指令</a><time datetime="2024-08-25T09:09:05.000Z" title="发表于 2024-08-25 17:09:05">2024-08-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/Bing/ArromanchesLesBains.webp')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Human6sa</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">「清醒地思考，勇敢地前进」</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'wSHDzkm9xBpfpeRdREXPp7pX-gzGzoHsz',
+      appKey: '5Fi5DVNozbIk47fUlXws7SZk',
+      avatar: 'retro',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="/js/rdmbkg.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body></html>
