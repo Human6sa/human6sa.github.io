@@ -7,11 +7,10 @@ Allow: /resources/
 Allow: /abouts/ 
 Disallow: /vendors/
 Disallow: /js/
-Disallow: /img/
 Disallow: /css/
 Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
 Sitemap: https://human6sa.github.io/sitemap.xml
-
+Sitemap: https://human6sa.github.io/baidusitemap.xml
