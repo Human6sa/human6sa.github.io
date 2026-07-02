@@ -1,0 +1,19 @@
+@font-face {
+  font-family: 'DX';
+  font-display: swap;
+  src: url('/fonts/DX.woff2') format("woff2");
+}
+@font-face {
+  font-family: 'segoe print';
+  font-display: swap;
+  src: url('/fonts/segoe print.ttf') format("truetype");
+}
+div {
+	font-weight: 500;
+}
+h1 {
+	font-weight: 700;
+}
+body {
+    font-family: 'DX','segoe print';
+}

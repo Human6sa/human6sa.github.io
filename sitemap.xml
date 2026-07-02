@@ -2,24 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://human6sa.github.io/categories/index.html</loc>
-    
-    <lastmod>2026-07-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://human6sa.github.io/resources/index.html</loc>
-    
-    <lastmod>2026-07-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://human6sa.github.io/tags/index.html</loc>
     
     <lastmod>2026-07-02</lastmod>
@@ -264,6 +246,24 @@
   
   <url>
     <loc>https://human6sa.github.io/about/index.html</loc>
+    
+    <lastmod>2026-07-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://human6sa.github.io/categories/index.html</loc>
+    
+    <lastmod>2026-07-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://human6sa.github.io/resources/index.html</loc>
     
     <lastmod>2026-07-02</lastmod>
     
