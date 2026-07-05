@@ -1,0 +1,36 @@
+/* 首页文章卡片：两列网格 */
+#recent-posts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+#recent-posts > .recent-post-item {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin-top: 0 !important;
+}
+
+#recent-posts > .recent-post-item .post_cover {
+  width: 100%;
+  height: 220px;
+}
+
+#recent-posts > .recent-post-item .post_cover img.post_bg {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+#recent-posts > .recent-post-item > .recent-post-info {
+  width: 100%;
+  padding: 20px;
+}
+
+/* 手机端：恢复一列 */
+@media screen and (max-width: 768px) {
+  #recent-posts {
+    grid-template-columns: 1fr;
+  }
+}
