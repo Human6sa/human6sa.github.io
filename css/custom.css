@@ -3,15 +3,13 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  align-items: start;
 }
 
 #recent-posts > .recent-post-item {
   display: flex;
   flex-direction: column;
+  height: auto;
   margin-top: 0 !important;
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 #recent-posts > .recent-post-item .post_cover {
@@ -28,7 +26,6 @@
 #recent-posts > .recent-post-item > .recent-post-info {
   width: 100%;
   padding: 20px;
-  min-height: 150px;
 }
 
 /* 手机端：恢复一列 */
