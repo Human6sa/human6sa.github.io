@@ -1,0 +1,424 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>一文七问 · DreamerV3：用世界模型通吃 150+ 任务的通用强化学习 | Human6sa's Blog</title><meta name="keywords" content="强化学习,世界模型,DreamerV3,论文解读"><meta name="author" content="Human6sa"><meta name="copyright" content="Human6sa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一文七问解读 DreamerV3——一套固定超参数、基于世界模型的通用强化学习算法，首次在不依赖人类数据的情况下从零开始，在 Minecraft 中挖到钻石。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文七问 · DreamerV3：用世界模型通吃 150+ 任务的通用强化学习">
+<meta property="og:url" content="https://human6sa.github.io/%E4%B8%80%E6%96%87%E4%B8%83%E9%97%AE-DreamerV3.html">
+<meta property="og:site_name" content="Human6sa&#39;s Blog">
+<meta property="og:description" content="一文七问解读 DreamerV3——一套固定超参数、基于世界模型的通用强化学习算法，首次在不依赖人类数据的情况下从零开始，在 Minecraft 中挖到钻石。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2026-08-21T12:46:00.000Z">
+<meta property="article:modified_time" content="2026-08-21T12:46:00.000Z">
+<meta property="article:author" content="Human6sa">
+<meta property="article:tag" content="强化学习">
+<meta property="article:tag" content="世界模型">
+<meta property="article:tag" content="DreamerV3">
+<meta property="article:tag" content="论文解读">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://human6sa.github.io/%E4%B8%80%E6%96%87%E4%B8%83%E9%97%AE-DreamerV3"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="manifest" href="/img/pwa/manifest.json"/><link rel="apple-touch-icon" sizes="180x180" href="/img/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/pwa/16.png"/><link rel="mask-icon" href="/img/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-LLC2X7E0X2"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-LLC2X7E0X2');
+</script><link rel="stylesheet" href="/css/font.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一文七问 · DreamerV3：用世界模型通吃 150+ 任务的通用强化学习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-08-21 20:46:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/highlight.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/loading.gif" data-original="/img/blog_icon.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/resources/"><i class="fa-fw fas fa-cloud-download-alt"></i><span> 资源</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Human6sa's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/resources/"><i class="fa-fw fas fa-cloud-download-alt"></i><span> 资源</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一文七问 · DreamerV3：用世界模型通吃 150+ 任务的通用强化学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-21T12:46:00.000Z" title="发表于 2026-08-21 20:46:00">2026-08-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-21T12:46:00.000Z" title="更新于 2026-08-21 20:46:00">2026-08-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">论文解读</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/%E4%B8%80%E6%96%87%E4%B8%83%E9%97%AE-DreamerV3.html" data-flag-title="一文七问 · DreamerV3：用世界模型通吃 150+ 任务的通用强化学习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="导读"><a href="#导读" class="headerlink" title="导读"></a>导读</h2><p>本篇推文将为大家介绍 Google DeepMind 与多伦多大学提出的一种名为 DreamerV3 的通用强化学习算法。该算法基于世界模型（World Models），先让智能体在想象中预测环境的演化，再在想象出的轨迹上训练策略。DreamerV3 旨在用一套固定的超参数解决多种不同领域的任务，而无需针对每个任务单独调参。作者在超过 150 个、跨越 8 大类的任务上验证了该算法，其中最受关注的是首次在不使用任何人类数据和课程学习的情况下，从零开始纯靠探索在《我的世界》（Minecraft）中挖到了钻石。</p>
+<h2 id="论文简介"><a href="#论文简介" class="headerlink" title="论文简介"></a>论文简介</h2><h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>Mastering Diverse Domains through World Models</p>
+<h3 id="作者"><a href="#作者" class="headerlink" title="作者"></a>作者</h3><p>Danijar Hafner<sup>1,2</sup>，Jurgis Pasukonis<sup>1</sup>，Jimmy Ba<sup>2</sup>，Timothy Lillicrap<sup>1</sup></p>
+<h3 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h3><p><sup>1</sup> Google DeepMind；<sup>2</sup> University of Toronto</p>
+<p>论文地址：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2301.04104">https://arxiv.org/abs/2301.04104</a></p>
+<h2 id="Seven-Questions-for-a-Paper"><a href="#Seven-Questions-for-a-Paper" class="headerlink" title="Seven Questions for a Paper"></a>Seven Questions for a Paper</h2><h3 id="1-研究动机是什么？"><a href="#1-研究动机是什么？" class="headerlink" title="1.研究动机是什么？"></a>1.研究动机是什么？</h3><p>一句话概括：把强化学习从每个任务都要人工调参的困境中解放出来，做成一个通用、开箱即用的算法。</p>
+<p>作者观察到两个长期困扰强化学习落地的问题。其一是对超参数的极度敏感：现有算法在不同领域上，需要人类专家投入大量时间做试错式的调参，这种脆弱性既拖慢了研究迭代，也让强化学习难以应用到调参成本过高的场景。其二是算法在不同领域之间的割裂：擅长 Atari 的方法未必擅长连续控制，擅长机器人任务的方法未必擅长稀疏奖励探索，业界始终缺乏一个一法通吃的统一方案。</p>
+<p>于是 DreamerV3 要回答的核心问题就变得很清晰：能不能固定住一整套超参数，让它不加任何改动地，在视觉任务、连续控制、稀疏奖励、3D 环境、机器人等多类任务上都保持竞争力。</p>
+<hr>
+<h3 id="2-主要解决了什么问题？"><a href="#2-主要解决了什么问题？" class="headerlink" title="2.主要解决了什么问题？"></a>2.主要解决了什么问题？</h3><p>论文要解决的问题可以归纳为三点。</p>
+<ul>
+<li><p>第一是跨领域泛化，用唯一一套固定超参数在 8 大类、超过 150 个任务上达到或超过各领域专门算法，全程无需任何领域级的调优。</p>
+</li>
+<li><p>第二是稀疏奖励与长程探索，在《我的世界》这类奖励极其稀疏、时间跨度极长的任务里，首次在不依赖人类演示数据、不依赖课程学习的情况下从零挖到钻石，这是此前强化学习方法从未做到的。</p>
+</li>
+<li><p>第三是数据与算力效率，在多数基准上以更少的环境交互步数取得更强性能，且全部结果都可用单张 NVIDIA A100 GPU 复现。</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-所提的方法是什么？"><a href="#3-所提的方法是什么？" class="headerlink" title="3.所提的方法是什么？"></a>3.所提的方法是什么？</h3><p>DreamerV3 延续了 Dreamer 系列的核心范式：先学一个世界模型，再在世界模型想象出的轨迹上训练 actor-critic，全程不与真实环境交互，这种在潜空间里做想象的学习方式被称为 latent imagination。在此框架之上，V3 通过一系列鲁棒性技巧，消除了对调参的依赖。整个训练流程如图 1 所示。</p>
+<p align="center">
+  <img src="/img/loading.gif" data-original="https://rlchian-bbs.oss-cn-beijing.aliyuncs.com/images/2026/08/20/09b75616aa8445ffc758feaa4d9d15f7.png" alt="训练流程示意图">
+</p>
+<center>图1 Dreamer 的训练流程：世界模型将感官输入编码为离散表征，并由序列模型预测其演化；actor 与 critic 在世界模型想象出的轨迹上学习</center>
+<br>
+
+<p>具体来说，算法由三个神经网络组成。世界模型采用循环状态空间模型（Recurrent State-Space Model, RSSM），其核心组件可以写成如下形式。序列模型负责根据历史动作与状态预测下一步的确定性隐状态：</p>
+<p>$$<br>h_t &#x3D; f_\phi(h_{t-1}, z_{t-1}, a_{t-1})<br>$$</p>
+<p>动力学预测器在隐状态之上给出下一步的随机离散表征，编码器则把真实观测融入表征：</p>
+<p>$$<br>z_t \sim p_\phi(z_t \mid h_t), \qquad z_t \sim q_\phi(z_t \mid h_t, x_t)<br>$$</p>
+<p>此外还有三个预测头，分别用于重建观测、预测奖励和预测回合是否结束：</p>
+<p>$$<br>\hat{x}_t \sim p_\phi(x_t \mid h_t, z_t),\quad \hat{r}_t \sim p_\phi(r_t \mid h_t, z_t),\quad \hat{c}_t \sim p_\phi(c_t \mid h_t, z_t)<br>$$</p>
+<p>世界模型的整体损失由表征正则项与三个重建项组成：</p>
+<p>$$<br>\mathcal{L}<em>{\mathrm{WM}} &#x3D; \mathbb{E}</em>{q_\phi}\left[\sum_t \mathrm{KL}\big[q_\phi(z_t\mid h_t,x_t),|,p_\phi(z_t\mid h_t)\big] - \ln p_\phi(x_t\mid h_t,z_t) - \ln p_\phi(r_t\mid h_t,z_t) - \ln p_\phi(c_t\mid h_t,z_t)\right]<br>$$</p>
+<p>在世界模型之上，actor 以最大化想象回报为目标选择动作，并带熵正则；critic 则预测回报分布。为让这一整套组件在不同任务上稳定工作，作者引入了若干关键技巧。</p>
+<p>其一是 symlog 变换。不同任务的观测与回报在量级上可以相差数十个数量级，直接用均方误差回归极易失稳。作者采用双向对称的对数变换来统一处理预测目标：</p>
+<p>$$<br>\mathrm{symlog}(x) &#x3D; \operatorname{sign}(x)\ln(|x|+1), \qquad \mathrm{symexp}(x) &#x3D; \operatorname{sign}(x)(e^{|x|}-1)<br>$$</p>
+<p>与之配套，critic 和奖励预测器不再预测单一标量，而是预测一个定义在指数间隔分箱上的类别分布（symexp twohot）。设分箱为 $B_i&#x3D;\mathrm{symexp}!\big(\mathrm{symlog}(v_{\min})+i,\Delta\big)$，则回报与价值可被稳定地表示在从小到大的整个动态范围内，从而适应奖励尺度的巨大差异。</p>
+<p>其二是百分位回报归一化。作者用回报分布的 5% 到 95% 百分位做归一化，并对分母设下限 $L&#x3D;1$，从而让奖励尺度差异不再影响训练。其三是 KL balance 与 free bits：把表征正则项拆成动力学与表征两部分，分别赋权重 $\beta_{\mathrm{dyn}}$ 与 $\beta_{\mathrm{rep}}$，并对 KL 做 1 nat 的截断，缓解了不同视觉复杂度下表征正则长期存在的问题。此外还有对类别分布做 1% 的 unimix 混合以防止分布塌缩、自适应梯度裁剪、LaProp 优化器、块对角 GRU 等一系列工程化技巧，它们共同保证了固定超参数下训练的稳定性。</p>
+<hr>
+<h3 id="4-关键结果及结论是什么？"><a href="#4-关键结果及结论是什么？" class="headerlink" title="4.关键结果及结论是什么？"></a>4.关键结果及结论是什么？</h3><p>论文最受关注的成果，是在《我的世界》中挖到钻石。这是一个难度很高、被广泛关注的任务：奖励极度稀疏、探索空间巨大、时间跨度极长，且存在大量的程序化生成内容。此前的方法（如基于视频预训练的 VPT）都需要依赖大量人类演示数据，并使用 720 张 GPU 训练约 9 天。而 DreamerV3 在不使用任何人类数据和课程学习的情况下，从零开始纯靠探索，在 1 亿环境步内首次收集到钻石，10 个随机种子中有 10 个全部成功，整个过程只用了 1 张 GPU。图 2 展示了随着训练进行，能发现各项物品的智能体比例。</p>
+<p align="center">
+  <img src="/img/loading.gif" data-original="https://rlchian-bbs.oss-cn-beijing.aliyuncs.com/images/2026/08/20/c9e9794ca70cf0e8d4f0574182c8ab33.png" alt="Minecraft 挖钻石结果">
+</p>
+<center>图2 Minecraft 中能够发现各阶段物品（含钻石）的智能体比例随环境步数的变化</center>
+<br>
+
+<p>更具一般性的结论体现在跨基准的表现上。论文在视觉控制（Control Suite）、Atari、ProcGen、DMLab、Minecraft、Atari100k、本体感知控制、BSuite 等多个领域进行了评测，全部使用同一套固定超参数，结果如图 3 所示。在 Atari 的 57 个游戏上，DreamerV3 超越了 MuZero、Rainbow 和 IQN；在 ProcGen 的 16 个游戏上匹敌 PPG 并超越 Rainbow；在 DMLab 的 30 个任务上超过了 IMPALA 和 R2D2+，而后两者使用了 10 倍的数据量；在数据高效的 Atari100k 上超越了 IRIS、TWM、SPR 和 SimPLe，仅略逊于使用关卡重置技巧的 EfficientZero；在本体感知控制的 18 个任务和视觉控制的 20 个任务上，分别刷新了当时的最高水平，超越 D4PG、DMPO、MPO、DrQ-v2 和 CURL。</p>
+<p align="center">
+  <img src="/img/loading.gif" data-original="https://rlchian-bbs.oss-cn-beijing.aliyuncs.com/images/2026/08/20/2209c93032451501957a2d1aab5c870c.png" alt="跨基准对比结果">
+</p>
+<center>图3 DreamerV3 在多个领域基准上的归一化得分汇总，全部使用同一套固定超参数</center>
+<br>
+
+<p>此外，论文还系统研究了扩展性。将模型从 1200 万参数逐步扩到 4 亿参数，作者发现更大的模型不仅性能更强，所需的数据反而更少；提高 replay ratio 也能稳定地带来性能提升。这说明 DreamerV3 具备良好的扩展律，为把强化学习当作基础模型来训练提供了实证支撑，相关消融与扩展实验如图 4 所示。</p>
+<p align="center">
+  <img src="/img/loading.gif" data-original="https://rlchian-bbs.oss-cn-beijing.aliyuncs.com/images/2026/08/20/067749fcd871327d9cc9d73b0bd36340.png" alt="消融与扩展性实验">
+</p>
+<center>图4 鲁棒性技巧的消融实验，以及模型规模、replay ratio 对性能的影响</center>
+<br>
+
+<p>综合来看，论文的核心结论可以概括为：一个固定超参数的通用算法，可以在极多样化的任务上同时取得最先进水平，并具备可预测的扩展性。</p>
+<hr>
+<h3 id="5-创新点在哪里？"><a href="#5-创新点在哪里？" class="headerlink" title="5.创新点在哪里？"></a>5.创新点在哪里？</h3><p>本文的创新更多体现在如何让一套固定超参数真正跑通，也就是那些让训练在跨领域下保持稳定的技术细节。这些贡献可以拆成几个层次来看。</p>
+<p>其一，symlog 与 symexp twohot 用双向对称对数变换加上指数间隔分箱来预测奖励与价值，解决了不同任务目标量级差异巨大、直接回归极易失稳的问题。</p>
+<p>其二，百分位回报归一化让奖励的绝对尺度不再进入优化目标，这是算法能够不加改动地跨任务迁移的关键。</p>
+<p>其三，KL balance、free bits 与 1% unimix 针对的是世界模型中表征正则的难题，让模型在视觉复杂度差异悬殊的场景下都能学到稳定的表征。</p>
+<p>此外，块对角 GRU、自适应梯度裁剪、LaProp 优化器等工程技巧进一步保证了大规模、长程训练下的稳定性。把这些各自独立的小改进组合起来，才最终呈现出前面所述的跨领域泛化效果。</p>
+<hr>
+<h3 id="6-有值得阅读的相关文献吗？"><a href="#6-有值得阅读的相关文献吗？" class="headerlink" title="6.有值得阅读的相关文献吗？"></a>6.有值得阅读的相关文献吗？</h3><ol>
+<li><p>Hafner 等人提出了 PlaNet，用潜动力学模型做规划，奠定了世界模型强化学习的基本范式。<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1811.04551">Learning Latent Dynamics for Planning from Pixels, ICML 2019</a></p>
+</li>
+<li><p>同一团队的 Dreamer 首次把世界模型与 actor-critic 结合，在连续控制上取得最先进水平。<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1912.01603">Dream to Control: Learning Behaviors by Latent Imagination, arXiv 2019</a></p>
+</li>
+<li><p>DreamerV2 引入离散表征与 KL balance，首次在 Atari 上超越人类水平，是本文的直接前作。<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.02193">Mastering Atari with Discrete World Models, arXiv 2020</a></p>
+</li>
+<li><p>MuZero 代表了另一条基于模型的路线，用价值等价的隐式模型做蒙特卡洛树搜索，可作为对照阅读。<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.08265">Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model, Nature 2020</a></p>
+</li>
+<li><p>EfficientZero 是 MuZero 的数据高效版本，在 Atari100k 上保持最先进，本文也认可其在 Atari100k 上的表现。<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2111.00210">Mastering Atari Games with Limited Data, NeurIPS 2021</a></p>
+</li>
+<li><p>VPT 用人类视频预训练再微调来玩 Minecraft，与本文从零学习形成鲜明对比。<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2206.11795">Video PreTraining (VPT): Learning to Act by Watching Unlabeled Online Videos, NeurIPS 2022</a></p>
+</li>
+</ol>
+<hr>
+<h3 id="7-综合评价如何？"><a href="#7-综合评价如何？" class="headerlink" title="7.综合评价如何？"></a>7.综合评价如何？</h3><p>DreamerV3 是基于模型的强化学习领域一项有代表性的工作。它的价值不在于某一个基准的数字，而在于证明了固定超参数的通用强化学习算法是可行的。较好的通用性与可复现性（一套超参数跨 150 多个任务、代码开源、单卡可复现）、清晰的扩展律，以及一批可迁移到其他工作的鲁棒性技巧，使其对研究社区具有较高的参考价值。</p>
+<p>当然，它也有不足：算力成本仍然不低，Minecraft 挖钻石仍需单卡训练约 9 天；部分基准的 baseline 使用了 10 倍数据优势，且未与 Gato、Voyager 等需要外部数据或 API 的方法直接对比；此外工作仍以单任务学习为主，离真正的通用智能体还有距离，在算力利用上也不一定是 compute-optimal。</p>
+<p>总体而言，它在把强化学习从依赖人工调参推向更通用、可扩展方向上做出了有益的尝试。</p>
+<hr>
+<h2 id="作者简介"><a href="#作者简介" class="headerlink" title="作者简介"></a>作者简介</h2><p>胡兆杨，自动化所2026级研究生，研究兴趣包括强化学习、具身智能与 Sim2Real 等。</p>
+<p>联系邮箱：<a href="mailto:&#x68;&#x75;&#122;&#x68;&#x61;&#x6f;&#x79;&#x61;&#x6e;&#x67;&#50;&#48;&#x32;&#x36;&#64;&#x69;&#97;&#x2e;&#97;&#99;&#x2e;&#99;&#110;">&#x68;&#x75;&#122;&#x68;&#x61;&#x6f;&#x79;&#x61;&#x6e;&#x67;&#50;&#48;&#x32;&#x36;&#64;&#x69;&#97;&#x2e;&#97;&#99;&#x2e;&#99;&#110;</a></p>
+<h2 id="联系我们"><a href="#联系我们" class="headerlink" title="联系我们"></a>联系我们</h2><p>欢迎关注 RLCN 公众号，获取 RL 相关资讯。</p>
+<p>Email: <a href="mailto:&#114;&#108;&#x63;&#x68;&#105;&#110;&#97;&#99;&#x61;&#109;&#112;&#64;&#49;&#x36;&#51;&#x2e;&#99;&#x6f;&#x6d;">&#114;&#108;&#x63;&#x68;&#105;&#110;&#97;&#99;&#x61;&#109;&#112;&#64;&#49;&#x36;&#51;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p><img src="/img/loading.gif" data-original="https://jidi-images.oss-cn-beijing.aliyuncs.com/rlchina2021/rlcn.jpeg?x-oss-process=image/resize,l_200" alt="Description"></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a><a class="post-meta__tags" href="/tags/%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B/">世界模型</a><a class="post-meta__tags" href="/tags/DreamerV3/">DreamerV3</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">论文解读</a></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7%E5%B0%8F%E8%AE%B0.html"><img class="next-cover" src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/Fujisan.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">博客升级小记</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/loading.gif" data-original="/img/blog_icon.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Human6sa</div><div class="author-info__description">清朗</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Human6sa"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:1415750220@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E8%AF%BB"><span class="toc-number">1.</span> <span class="toc-text">导读</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">论文简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E9%A2%98"><span class="toc-number">2.1.</span> <span class="toc-text">标题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E8%80%85"><span class="toc-number">2.2.</span> <span class="toc-text">作者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D"><span class="toc-number">2.3.</span> <span class="toc-text">单位</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Seven-Questions-for-a-Paper"><span class="toc-number">3.</span> <span class="toc-text">Seven Questions for a Paper</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%A0%94%E7%A9%B6%E5%8A%A8%E6%9C%BA%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">1.研究动机是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%BB%E8%A6%81%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">3.2.</span> <span class="toc-text">2.主要解决了什么问题？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%89%80%E6%8F%90%E7%9A%84%E6%96%B9%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">3.3.</span> <span class="toc-text">3.所提的方法是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%85%B3%E9%94%AE%E7%BB%93%E6%9E%9C%E5%8F%8A%E7%BB%93%E8%AE%BA%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">3.4.</span> <span class="toc-text">4.关键结果及结论是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%88%9B%E6%96%B0%E7%82%B9%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F"><span class="toc-number">3.5.</span> <span class="toc-text">5.创新点在哪里？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9C%89%E5%80%BC%E5%BE%97%E9%98%85%E8%AF%BB%E7%9A%84%E7%9B%B8%E5%85%B3%E6%96%87%E7%8C%AE%E5%90%97%EF%BC%9F"><span class="toc-number">3.6.</span> <span class="toc-text">6.有值得阅读的相关文献吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%BB%BC%E5%90%88%E8%AF%84%E4%BB%B7%E5%A6%82%E4%BD%95%EF%BC%9F"><span class="toc-number">3.7.</span> <span class="toc-text">7.综合评价如何？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E8%80%85%E7%AE%80%E4%BB%8B"><span class="toc-number">4.</span> <span class="toc-text">作者简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC"><span class="toc-number">5.</span> <span class="toc-text">联系我们</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/%E4%B8%80%E6%96%87%E4%B8%83%E9%97%AE-DreamerV3.html" title="一文七问 · DreamerV3：用世界模型通吃 150+ 任务的通用强化学习"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一文七问 · DreamerV3：用世界模型通吃 150+ 任务的通用强化学习"/></a><div class="content"><a class="title" href="/%E4%B8%80%E6%96%87%E4%B8%83%E9%97%AE-DreamerV3.html" title="一文七问 · DreamerV3：用世界模型通吃 150+ 任务的通用强化学习">一文七问 · DreamerV3：用世界模型通吃 150+ 任务的通用强化学习</a><time datetime="2026-08-21T12:46:00.000Z" title="发表于 2026-08-21 20:46:00">2026-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7%E5%B0%8F%E8%AE%B0.html" title="博客升级小记"><img src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/Fujisan.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客升级小记"/></a><div class="content"><a class="title" href="/%E5%8D%9A%E5%AE%A2%E5%8D%87%E7%BA%A7%E5%B0%8F%E8%AE%B0.html" title="博客升级小记">博客升级小记</a><time datetime="2026-07-08T04:06:00.000Z" title="发表于 2026-07-08 12:06:00">2026-07-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E5%9F%BA%E4%BA%8Enanochat%E7%9A%84%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2.html" title="基于nanochat的大语言模型本地部署"><img src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AnzaBorregoBloom.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于nanochat的大语言模型本地部署"/></a><div class="content"><a class="title" href="/%E5%9F%BA%E4%BA%8Enanochat%E7%9A%84%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2.html" title="基于nanochat的大语言模型本地部署">基于nanochat的大语言模型本地部署</a><time datetime="2025-05-26T02:03:10.000Z" title="发表于 2025-05-26 10:03:10">2025-05-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%B8%AD%E6%96%AD.html" title="8086汇编语言：中断"><img src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/BambooTreesIndia.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编语言：中断"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E4%B8%AD%E6%96%AD.html" title="8086汇编语言：中断">8086汇编语言：中断</a><time datetime="2024-08-25T14:25:46.000Z" title="发表于 2024-08-25 22:25:46">2024-08-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B.html" title="8086汇编语言：多文件编程"><img src="/img/loading.gif" data-original="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/BambooPanda.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086汇编语言：多文件编程"/></a><div class="content"><a class="title" href="/8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%A4%9A%E6%96%87%E4%BB%B6%E7%BC%96%E7%A8%8B.html" title="8086汇编语言：多文件编程">8086汇编语言：多文件编程</a><time datetime="2024-08-25T13:52:08.000Z" title="发表于 2024-08-25 21:52:08">2024-08-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Human6sa</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">「清醒地思考，勇敢地前进」</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/4.0.27/fancybox.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.0/katex.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.0/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'wSHDzkm9xBpfpeRdREXPp7pX-gzGzoHsz',
+      appKey: '5Fi5DVNozbIk47fUlXws7SZk',
+      avatar: 'retro',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdnjs.cloudflare.com/ajax/libs/valine/1.4.18/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="/js/rdmbkg.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-LLC2X7E0X2', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body></html>
