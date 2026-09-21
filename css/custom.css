@@ -34,3 +34,14 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* 标题字重与正文阅读体验 */
+#site-name,
+#site-title {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+#article-container {
+  line-height: 1.85;
+}

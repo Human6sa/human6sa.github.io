@@ -1372,7 +1372,7 @@ body {
   background: var(--global-bg);
   color: var(--font-color);
   font-size: var(--global-font-size);
-  font-family: DX,consolas;
+  font-family: "DengXian", "等线", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
   line-height: 2;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
@@ -1492,7 +1492,7 @@ a:hover {
 #site-name,
 #aside-content .author-info__name,
 #aside-content .author-info__description {
-  font-family: segoe print,DX;
+  font-family: "Segoe Print", "DengXian", "等线", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", sans-serif;
 }
 .is-center {
   text-align: center;
@@ -1671,7 +1671,7 @@ figure.highlight pre .javascript .function {
 #article-container pre,
 #article-container code {
   font-size: 14px;
-  font-family: consolas !important;
+  font-family: "Cascadia Code", "Cascadia Mono", Consolas, "SFMono-Regular", Menlo, Monaco, monospace !important;
 }
 #article-container code {
   padding: 2px 4px;
