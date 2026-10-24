@@ -43,6 +43,44 @@
   letter-spacing: 0.02em;
 }
 
+/* The fixed site name is a transparent PNG, independent of installed fonts. */
+#site-info #site-title > .site-title-image {
+  display: block;
+  width: min(11em, 100%);
+  height: auto;
+  margin: 0 auto;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+#nav .site-name-wordmark {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 0;
+}
+
+#nav .site-name-wordmark > .site-title-image {
+  display: block;
+  width: min(9.5em, 55vw);
+  height: auto;
+}
+
+/* Reuse the PNG's alpha as a mask so the nav follows light/dark text colors. */
+@supports (mask-image: url("")) or (-webkit-mask-image: url("")) {
+  #nav .site-name-wordmark {
+    background-color: currentColor;
+    -webkit-mask-image: var(--site-title-image);
+    mask-image: var(--site-title-image);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  #nav .site-name-wordmark > .site-title-image {
+    opacity: 0;
+  }
+}
+
 #article-container {
   line-height: 1.85;
 }
