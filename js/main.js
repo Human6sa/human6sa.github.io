@@ -748,6 +748,10 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const clickFnOfSubMenu = () => {
     const handleClickOfSubMenu = e => {
+      if (mobileSidebarOpen && e.target.closest('.category-mobile-menu .category-tabs a')) {
+        sidebarFn.close()
+        return
+      }
       const target = e.target.closest('.site-page.group')
       if (!target) return
       target.classList.toggle('hide')

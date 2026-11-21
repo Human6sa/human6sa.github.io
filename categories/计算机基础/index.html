@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>分类: 计算机基础 | Human6sa's Blog</title><meta name="author" content="Human6sa"><meta name="copyright" content="Human6sa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="清朗">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Human6sa&#39;s Blog">
+<meta property="og:url" content="https://human6sa.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Human6sa&#39;s Blog">
+<meta property="og:description" content="清朗">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://human6sa.github.io/img/blog_icon.webp">
+<meta property="article:author" content="Human6sa">
+<meta property="article:tag" content="具身智能 自动化所 强化学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://human6sa.github.io/img/blog_icon.webp"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://human6sa.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/index.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="mLSKxXtShZjX5gBe6nH_dhwcVyx4KPgBrZh-BP22v6c"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/6.1.14/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-LLC2X7E0X2"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-LLC2X7E0X2')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-LLC2X7E0X2', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.13.0/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '分类: 计算机基础',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'category'
+}</script><link rel="stylesheet" href="/css/highlight.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/blog_icon.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><details class="category-mobile-menu"><summary class="site-page"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down category-menu-chevron" aria-hidden="true"></i></summary><ul class="category-tabs"><li><a href="/categories/">全部分类</a></li><li><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" aria-current="page">计算机基础</a></li><li><a href="/categories/%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0/">科研笔记</a></li><li><a href="/categories/%E5%B7%A5%E7%A8%8B%E7%AC%94%E8%AE%B0/">工程笔记</a></li><li><a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></details></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page has-category-navigation" id="body-wrap"><aside class="category-sidebar" data-category-disclosure><button class="category-sidebar-toggle" type="button" data-category-toggle aria-expanded="false" aria-pressed="false" aria-controls="category-sidebar-panel" aria-label="固定分类侧栏" title="固定分类侧栏"><i class="fas fa-sitemap" aria-hidden="true"></i></button><nav class="category-sidebar-panel" id="category-sidebar-panel" aria-label="分类索引" data-category-panel inert><ul class="category-sidebar-links" id="category-tree-desktop"><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a class="category-sidebar-current" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" aria-current="page" data-category-branch-link>计算机基础</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-desktop-0" aria-expanded="true" aria-label="展开或收起：计算机基础"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-desktop-0"><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/notes/algorithms/" data-category-branch-link>算法笔记</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-desktop-0-0" aria-expanded="false" aria-label="展开或收起：算法笔记"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-desktop-0-0" hidden><li><a href="/notes/algorithms/prefix-sum-and-difference/">前缀和、差分与离散化</a></li><li><a href="/notes/algorithms/binary-search/">二分</a></li><li><a href="/notes/algorithms/monotonic-stack-and-queue/">单调栈与单调队列</a></li><li><a href="/notes/algorithms/search/">【算法】搜索技巧</a></li><li><a href="/notes/algorithms/big-integer/">【算法】高精度模板</a></li><li><a href="/notes/algorithms/two-pointers/">【算法】双指针学习笔记</a></li><li><a href="/notes/algorithms/stl/">【算法】常用STL函数</a></li><li><a href="/notes/algorithms/practice-log/">每日刷题记录</a></li></ul></div></li><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/notes/8086-assembly/" data-category-branch-link>8086 汇编</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-desktop-0-1" aria-expanded="false" aria-label="展开或收起：8086 汇编"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-desktop-0-1" hidden><li><a href="/notes/8086-assembly/registers/">8086汇编：8086寄存器组</a></li><li><a href="/notes/8086-assembly/debug/">8086汇编：调试工具DEBUG</a></li><li><a href="/notes/8086-assembly/basic-instructions/">8086汇编：基本汇编指令</a></li><li><a href="/notes/8086-assembly/branches/">8086汇编：分支指令</a></li><li><a href="/notes/8086-assembly/loops/">8086汇编：循环指令</a></li><li><a href="/notes/8086-assembly/procedures/">8086汇编语言：子程序</a></li><li><a href="/notes/8086-assembly/multi-file/">8086汇编语言：多文件编程</a></li><li><a href="/notes/8086-assembly/interrupts/">8086汇编语言：中断</a></li></ul></div></li><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/notes/cpp/classes-and-objects/" data-category-branch-link>C++</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-desktop-0-2" aria-expanded="false" aria-label="展开或收起：C++"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-desktop-0-2" hidden><li><a href="/notes/cpp/scope-resolution/">C++中的::运算符</a></li><li><a href="/notes/cpp/pointers-and-references/">C++指针与引用</a></li><li><a href="/notes/cpp/operator-precedence/">C++运算符优先级</a></li></ul></div></li><li><a href="/notes/python/print/">Python</a></li></ul></div></li><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/categories/%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0/" data-category-branch-link>科研笔记</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-desktop-1" aria-expanded="false" aria-label="展开或收起：科研笔记"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-desktop-1" hidden><li><a href="/notes/research/dreamerv3/">论文解读</a></li></ul></div></li><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/categories/%E5%B7%A5%E7%A8%8B%E7%AC%94%E8%AE%B0/" data-category-branch-link>工程笔记</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-desktop-2" aria-expanded="false" aria-label="展开或收起：工程笔记"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-desktop-2" hidden><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/notes/engineering/technical-notes/" data-category-branch-link>技术杂谈</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-desktop-2-0" aria-expanded="false" aria-label="展开或收起：技术杂谈"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-desktop-2-0" hidden><li><a href="/notes/engineering/technical-notes/blog-upgrade/">博客升级小记</a></li><li><a href="/notes/engineering/technical-notes/qt-new-file-error/">Qt创建新文件报错</a></li><li><a href="/notes/engineering/technical-notes/hexo-setup/">Hexo博客搭建中的一些坑</a></li></ul></div></li></ul></div></li><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/categories/%E9%9A%8F%E7%AC%94/" data-category-branch-link>随笔</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-desktop-3" aria-expanded="false" aria-label="展开或收起：随笔"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-desktop-3" hidden><li><a href="/%E5%9F%BA%E4%BA%8Enanochat%E7%9A%84%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2.html">基于nanochat的大语言模型本地部署</a></li><li><a href="/%E5%BB%BA%E7%AB%99%E5%B0%8F%E8%AE%B0.html">建站小记</a></li><li><a href="/hello-world.html">Hello World</a></li></ul></div></li></ul></nav></aside><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name site-name-wordmark" style="--site-title-image: url('/img/site-title-segoe-print.png')"><img class="site-title-image" src="/img/site-title-segoe-print.png" alt="Human6sa's Blog" width="1693" height="251" loading="eager" decoding="async"></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item category-menu" data-category-disclosure><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a><button class="category-menu-toggle" type="button" data-category-toggle aria-expanded="false" aria-controls="category-menu-panel" aria-label="文章分类"><i class="fas fa-chevron-down" aria-hidden="true"></i></button><div class="category-menu-panel" id="category-menu-panel" role="group" aria-label="文章分类" data-category-panel inert><ul class="category-tabs"><li><a href="/categories/">全部分类</a></li><li><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" aria-current="page">计算机基础</a></li><li><a href="/categories/%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0/">科研笔记</a></li><li><a href="/categories/%E5%B7%A5%E7%A8%8B%E7%AC%94%E8%AE%B0/">工程笔记</a></li><li><a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></li></ul></div></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">计算机基础</h1></div></header><main class="layout category-browse-layout category-browse-with-aside" id="content-inner"><details class="category-sidebar-compact"><summary>分类索引</summary><nav aria-label="分类索引"><ul class="category-sidebar-links" id="category-tree-compact"><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a class="category-sidebar-current" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" aria-current="page" data-category-branch-link>计算机基础</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-compact-0" aria-expanded="true" aria-label="展开或收起：计算机基础"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-compact-0"><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/notes/algorithms/" data-category-branch-link>算法笔记</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-compact-0-0" aria-expanded="false" aria-label="展开或收起：算法笔记"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-compact-0-0" hidden><li><a href="/notes/algorithms/prefix-sum-and-difference/">前缀和、差分与离散化</a></li><li><a href="/notes/algorithms/binary-search/">二分</a></li><li><a href="/notes/algorithms/monotonic-stack-and-queue/">单调栈与单调队列</a></li><li><a href="/notes/algorithms/search/">【算法】搜索技巧</a></li><li><a href="/notes/algorithms/big-integer/">【算法】高精度模板</a></li><li><a href="/notes/algorithms/two-pointers/">【算法】双指针学习笔记</a></li><li><a href="/notes/algorithms/stl/">【算法】常用STL函数</a></li><li><a href="/notes/algorithms/practice-log/">每日刷题记录</a></li></ul></div></li><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/notes/8086-assembly/" data-category-branch-link>8086 汇编</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-compact-0-1" aria-expanded="false" aria-label="展开或收起：8086 汇编"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-compact-0-1" hidden><li><a href="/notes/8086-assembly/registers/">8086汇编：8086寄存器组</a></li><li><a href="/notes/8086-assembly/debug/">8086汇编：调试工具DEBUG</a></li><li><a href="/notes/8086-assembly/basic-instructions/">8086汇编：基本汇编指令</a></li><li><a href="/notes/8086-assembly/branches/">8086汇编：分支指令</a></li><li><a href="/notes/8086-assembly/loops/">8086汇编：循环指令</a></li><li><a href="/notes/8086-assembly/procedures/">8086汇编语言：子程序</a></li><li><a href="/notes/8086-assembly/multi-file/">8086汇编语言：多文件编程</a></li><li><a href="/notes/8086-assembly/interrupts/">8086汇编语言：中断</a></li></ul></div></li><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/notes/cpp/classes-and-objects/" data-category-branch-link>C++</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-compact-0-2" aria-expanded="false" aria-label="展开或收起：C++"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-compact-0-2" hidden><li><a href="/notes/cpp/scope-resolution/">C++中的::运算符</a></li><li><a href="/notes/cpp/pointers-and-references/">C++指针与引用</a></li><li><a href="/notes/cpp/operator-precedence/">C++运算符优先级</a></li></ul></div></li><li><a href="/notes/python/print/">Python</a></li></ul></div></li><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/categories/%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0/" data-category-branch-link>科研笔记</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-compact-1" aria-expanded="false" aria-label="展开或收起：科研笔记"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-compact-1" hidden><li><a href="/notes/research/dreamerv3/">论文解读</a></li></ul></div></li><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/categories/%E5%B7%A5%E7%A8%8B%E7%AC%94%E8%AE%B0/" data-category-branch-link>工程笔记</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-compact-2" aria-expanded="false" aria-label="展开或收起：工程笔记"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-compact-2" hidden><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/notes/engineering/technical-notes/" data-category-branch-link>技术杂谈</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-compact-2-0" aria-expanded="false" aria-label="展开或收起：技术杂谈"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-compact-2-0" hidden><li><a href="/notes/engineering/technical-notes/blog-upgrade/">博客升级小记</a></li><li><a href="/notes/engineering/technical-notes/qt-new-file-error/">Qt创建新文件报错</a></li><li><a href="/notes/engineering/technical-notes/hexo-setup/">Hexo博客搭建中的一些坑</a></li></ul></div></li></ul></div></li><li><div class="category-sidebar-branch"><div class="category-sidebar-row"><a href="/categories/%E9%9A%8F%E7%AC%94/" data-category-branch-link>随笔</a><button class="category-sidebar-branch-toggle" type="button" data-category-branch-toggle aria-controls="category-tree-compact-3" aria-expanded="false" aria-label="展开或收起：随笔"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div><ul class="category-sidebar-links" id="category-tree-compact-3" hidden><li><a href="/%E5%9F%BA%E4%BA%8Enanochat%E7%9A%84%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2.html">基于nanochat的大语言模型本地部署</a></li><li><a href="/%E5%BB%BA%E7%AB%99%E5%B0%8F%E8%AE%B0.html">建站小记</a></li><li><a href="/hello-world.html">Hello World</a></li></ul></div></li></ul></nav></details><div id="category"><div class="article-sort-title">分类 - 计算机基础</div><div class="article-sort"><div class="article-sort-item year">2026</div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/8086-assembly/" title="8086 汇编"><img src="/img/Bing/BambooTreesIndia.webp" alt="8086 汇编" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2026-11-20T16:00:00.000Z" title="发表于 2026-11-21 00:00:00">2026-11-21</time></div><a class="article-sort-item-title" href="/notes/8086-assembly/" title="8086 汇编">8086 汇编</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/algorithms/" title="算法笔记"><img src="/img/Bing/Aoraki.webp" alt="算法笔记" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2026-11-20T16:00:00.000Z" title="发表于 2026-11-21 00:00:00">2026-11-21</time></div><a class="article-sort-item-title" href="/notes/algorithms/" title="算法笔记">算法笔记</a></div></div><div class="article-sort-item year">2024</div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/8086-assembly/interrupts/" title="8086汇编语言：中断"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/BambooTreesIndia.webp" alt="8086汇编语言：中断" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2024-08-25T14:25:46.000Z" title="发表于 2024-08-25 22:25:46">2024-08-25</time></div><a class="article-sort-item-title" href="/notes/8086-assembly/interrupts/" title="8086汇编语言：中断">8086汇编语言：中断</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/8086-assembly/multi-file/" title="8086汇编语言：多文件编程"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/BambooPanda.webp" alt="8086汇编语言：多文件编程" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2024-08-25T13:52:08.000Z" title="发表于 2024-08-25 21:52:08">2024-08-25</time></div><a class="article-sort-item-title" href="/notes/8086-assembly/multi-file/" title="8086汇编语言：多文件编程">8086汇编语言：多文件编程</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/8086-assembly/procedures/" title="8086汇编语言：子程序"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/BahamasSpace.webp" alt="8086汇编语言：子程序" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2024-08-25T13:47:50.000Z" title="发表于 2024-08-25 21:47:50">2024-08-25</time></div><a class="article-sort-item-title" href="/notes/8086-assembly/procedures/" title="8086汇编语言：子程序">8086汇编语言：子程序</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/8086-assembly/loops/" title="8086汇编：循环指令"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AyutthayaTree.webp" alt="8086汇编：循环指令" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2024-08-25T12:12:01.000Z" title="发表于 2024-08-25 20:12:01">2024-08-25</time></div><a class="article-sort-item-title" href="/notes/8086-assembly/loops/" title="8086汇编：循环指令">8086汇编：循环指令</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/8086-assembly/branches/" title="8086汇编：分支指令"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AvilaSpain.webp" alt="8086汇编：分支指令" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2024-08-25T09:09:05.000Z" title="发表于 2024-08-25 17:09:05">2024-08-25</time></div><a class="article-sort-item-title" href="/notes/8086-assembly/branches/" title="8086汇编：分支指令">8086汇编：分支指令</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/8086-assembly/basic-instructions/" title="8086汇编：基本汇编指令"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/ArromanchesLesBains.webp" alt="8086汇编：基本汇编指令" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2024-08-25T08:57:24.000Z" title="发表于 2024-08-25 16:57:24">2024-08-25</time></div><a class="article-sort-item-title" href="/notes/8086-assembly/basic-instructions/" title="8086汇编：基本汇编指令">8086汇编：基本汇编指令</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/8086-assembly/debug/" title="8086汇编：调试工具DEBUG"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/ArenalCostaRica.webp" alt="8086汇编：调试工具DEBUG" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2024-08-25T08:40:29.000Z" title="发表于 2024-08-25 16:40:29">2024-08-25</time></div><a class="article-sort-item-title" href="/notes/8086-assembly/debug/" title="8086汇编：调试工具DEBUG">8086汇编：调试工具DEBUG</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/8086-assembly/registers/" title="8086汇编：8086寄存器组"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/ArdeAlba.webp" alt="8086汇编：8086寄存器组" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2024-08-25T08:26:39.000Z" title="发表于 2024-08-25 16:26:39">2024-08-25</time></div><a class="article-sort-item-title" href="/notes/8086-assembly/registers/" title="8086汇编：8086寄存器组">8086汇编：8086寄存器组</a></div></div><div class="article-sort-item year">2023</div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/python/print/" title="Python中print()函数的使用"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AppalachianTrail.webp" alt="Python中print()函数的使用" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2023-09-12T12:12:51.000Z" title="发表于 2023-09-12 20:12:51">2023-09-12</time></div><a class="article-sort-item-title" href="/notes/python/print/" title="Python中print()函数的使用">Python中print()函数的使用</a></div></div><div class="article-sort-item year">2022</div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/cpp/scope-resolution/" title="C++中的::运算符"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AlfanzinaLighthouse.webp" alt="C++中的::运算符" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-12-08T13:11:51.000Z" title="发表于 2022-12-08 21:11:51">2022-12-08</time></div><a class="article-sort-item-title" href="/notes/cpp/scope-resolution/" title="C++中的::运算符">C++中的::运算符</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/cpp/classes-and-objects/" title="C++类与对象"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AmericanGoldfinch.webp" alt="C++类与对象" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-12-07T03:12:44.000Z" title="发表于 2022-12-07 11:12:44">2022-12-07</time></div><a class="article-sort-item-title" href="/notes/cpp/classes-and-objects/" title="C++类与对象">C++类与对象</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/algorithms/prefix-sum-and-difference/" title="【算法】前缀和、差分和离散化"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AntelopeBotswana.webp" alt="【算法】前缀和、差分和离散化" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-12-05T13:22:47.000Z" title="发表于 2022-12-05 21:22:47">2022-12-05</time></div><a class="article-sort-item-title" href="/notes/algorithms/prefix-sum-and-difference/" title="【算法】前缀和、差分和离散化">【算法】前缀和、差分和离散化</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/cpp/pointers-and-references/" title="C++指针与引用"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AncientOrkney.webp" alt="C++指针与引用" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-11-23T09:21:09.000Z" title="发表于 2022-11-23 17:21:09">2022-11-23</time></div><a class="article-sort-item-title" href="/notes/cpp/pointers-and-references/" title="C++指针与引用">C++指针与引用</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/cpp/operator-precedence/" title="C++运算符优先级"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/Aldeyjarfoss.webp" alt="C++运算符优先级" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-11-23T07:55:03.000Z" title="发表于 2022-11-23 15:55:03">2022-11-23</time></div><a class="article-sort-item-title" href="/notes/cpp/operator-precedence/" title="C++运算符优先级">C++运算符优先级</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/algorithms/monotonic-stack-and-queue/" title="单调栈与单调队列"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AlmondBloom.webp" alt="单调栈与单调队列" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-11-20T11:11:11.000Z" title="发表于 2022-11-20 19:11:11">2022-11-20</time></div><a class="article-sort-item-title" href="/notes/algorithms/monotonic-stack-and-queue/" title="单调栈与单调队列">单调栈与单调队列</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/algorithms/search/" title="【算法】搜索技巧"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/Aoraki.webp" alt="【算法】搜索技巧" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-11-20T02:46:51.000Z" title="发表于 2022-11-20 10:46:51">2022-11-20</time></div><a class="article-sort-item-title" href="/notes/algorithms/search/" title="【算法】搜索技巧">【算法】搜索技巧</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/algorithms/binary-search/" title="【算法】二分学习笔记"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/Andromeda.webp" alt="【算法】二分学习笔记" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-11-09T06:23:55.000Z" title="发表于 2022-11-09 14:23:55">2022-11-09</time></div><a class="article-sort-item-title" href="/notes/algorithms/binary-search/" title="【算法】二分学习笔记">【算法】二分学习笔记</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/algorithms/big-integer/" title="【算法】高精度模板"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AnivaLighthouse.webp" alt="【算法】高精度模板" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-11-08T12:31:57.000Z" title="发表于 2022-11-08 20:31:57">2022-11-08</time></div><a class="article-sort-item-title" href="/notes/algorithms/big-integer/" title="【算法】高精度模板">【算法】高精度模板</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/algorithms/two-pointers/" title="【算法】双指针学习笔记"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AnzaBorregoBloom.webp" alt="【算法】双指针学习笔记" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-10-19T09:05:38.000Z" title="发表于 2022-10-19 17:05:38">2022-10-19</time></div><a class="article-sort-item-title" href="/notes/algorithms/two-pointers/" title="【算法】双指针学习笔记">【算法】双指针学习笔记</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/algorithms/stl/" title="【算法】常用STL函数"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/22.10.19.webp" alt="【算法】常用STL函数" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-10-19T08:46:43.000Z" title="发表于 2022-10-19 16:46:43">2022-10-19</time></div><a class="article-sort-item-title" href="/notes/algorithms/stl/" title="【算法】常用STL函数">【算法】常用STL函数</a></div></div><div class="article-sort-item"><a class="article-sort-item-img" href="/notes/algorithms/practice-log/" title="每日刷题记录"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/AltaFloresta.webp" alt="每日刷题记录" onerror="this.onerror=null;this.src='/img/404.jpg'" loading='lazy'></a><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2022-10-17T15:19:09.000Z" title="发表于 2022-10-17 23:19:09">2022-10-17</time></div><a class="article-sort-item-title" href="/notes/algorithms/practice-log/" title="每日刷题记录">每日刷题记录</a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/blog_icon.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">Human6sa</div><div class="author-info-description">清朗</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Human6sa"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:1415750220@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/notes/8086-assembly/" title="8086 汇编"><img src="/img/Bing/BambooTreesIndia.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="8086 汇编"/ loading='lazy'></a><div class="content"><a class="title" href="/notes/8086-assembly/" title="8086 汇编">8086 汇编</a><time datetime="2026-11-20T16:00:00.000Z" title="发表于 2026-11-21 00:00:00">2026-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/notes/engineering/technical-notes/" title="技术杂谈"><img src="/img/Bing/Fujisan.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="技术杂谈"/ loading='lazy'></a><div class="content"><a class="title" href="/notes/engineering/technical-notes/" title="技术杂谈">技术杂谈</a><time datetime="2026-11-20T16:00:00.000Z" title="发表于 2026-11-21 00:00:00">2026-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/notes/algorithms/" title="算法笔记"><img src="/img/Bing/Aoraki.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法笔记"/ loading='lazy'></a><div class="content"><a class="title" href="/notes/algorithms/" title="算法笔记">算法笔记</a><time datetime="2026-11-20T16:00:00.000Z" title="发表于 2026-11-21 00:00:00">2026-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/notes/research/dreamerv3/" title="一文七问 | DreamerV3：基于世界模型的通用强化学习算法"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/SyracuseItaly.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一文七问 | DreamerV3：基于世界模型的通用强化学习算法"/ loading='lazy'></a><div class="content"><a class="title" href="/notes/research/dreamerv3/" title="一文七问 | DreamerV3：基于世界模型的通用强化学习算法">一文七问 | DreamerV3：基于世界模型的通用强化学习算法</a><time datetime="2026-08-21T12:46:00.000Z" title="发表于 2026-08-21 20:46:00">2026-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/notes/engineering/technical-notes/blog-upgrade/" title="博客升级小记"><img src="https://cdn.jsdelivr.net/gh/Human6sa/blog-source@main/themes/butterfly/source/img/Bing/Fujisan.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客升级小记"/ loading='lazy'></a><div class="content"><a class="title" href="/notes/engineering/technical-notes/blog-upgrade/" title="博客升级小记">博客升级小记</a><time datetime="2026-07-08T04:06:00.000Z" title="发表于 2026-07-08 12:06:00">2026-07-08</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%B7%A5%E7%A8%8B%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">工程笔记</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0/"><span class="card-category-list-name">科研笔记</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><span class="card-category-list-name">计算机基础</span><span class="card-category-list-count">23</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%9A%8F%E7%AC%94/"><span class="card-category-list-name">随笔</span><span class="card-category-list-count">3</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">基础算法</a> <a href="/tags/Hexo/" style="font-size: 1.1em; color: #999">Hexo</a> <a href="/tags/DreamerV3/" style="font-size: 1.1em; color: #999">DreamerV3</a> <a href="/tags/C-%E8%AF%AD%E6%B3%95/" style="font-size: 1.3em; color: #99a1ac">C++语法</a> <a href="/tags/%E6%90%9C%E7%B4%A2/" style="font-size: 1.1em; color: #999">搜索</a> <a href="/tags/Python%E8%AF%AD%E6%B3%95/" style="font-size: 1.1em; color: #999">Python语法</a> <a href="/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/" style="font-size: 1.1em; color: #999">高精度</a> <a href="/tags/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" style="font-size: 1.1em; color: #999">论文解读</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1.1em; color: #999">博客</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">强化学习</a> <a href="/tags/STL/" style="font-size: 1.1em; color: #999">STL</a> <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" style="font-size: 1.1em; color: #999">单调队列</a> <a href="/tags/%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B/" style="font-size: 1.1em; color: #999">世界模型</a> <a href="/tags/Qt/" style="font-size: 1.1em; color: #999">Qt</a> <a href="/tags/8086/" style="font-size: 1.5em; color: #99a9bf">8086</a> <a href="/tags/%E4%BA%8C%E5%88%86/" style="font-size: 1.1em; color: #999">二分</a> <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/" style="font-size: 1.1em; color: #999">单调栈</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a></div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/11/">
+            <span class="card-archive-list-date">
+              十一月 2026
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/08/">
+            <span class="card-archive-list-date">
+              八月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/07/">
+            <span class="card-archive-list-date">
+              七月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              五月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/08/">
+            <span class="card-archive-list-date">
+              八月 2024
+            </span>
+            <span class="card-archive-list-count">8</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/02/">
+            <span class="card-archive-list-date">
+              二月 2024
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/09/">
+            <span class="card-archive-list-date">
+              九月 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2022/12/">
+            <span class="card-archive-list-date">
+              十二月 2022
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">31</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-11-21T09:53:19.389Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2020 - 2026 By Human6sa</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div><div class="footer_custom_text">「清醒地思考，勇敢地前进」</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/category-navigation.js" defer></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/6.1.14/fancybox/fancybox.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.2.0/instantpage.min.js" type="module"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><div class="js-pjax"></div><script async data-pjax src="/js/rdmbkg.js"></script><script defer src="/vendor/pangu/pangu.min.js"></script><script defer src="/js/pangu-init.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pjax/0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax","#sidebar-menus .category-mobile-menu .category-tabs"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([data-fancybox])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: true,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      if (!item.parentNode) return
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || ''
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    const responseURL = e.request && e.request.responseURL
+    if (e.request && e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : responseURL && (window.location.href = responseURL)
+    } else if (responseURL) {
+      window.location.href = responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="Search for Posts" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

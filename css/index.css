@@ -229,7 +229,7 @@ template {
   -webkit-font-smoothing: antialiased;
 }
 .cardHover,
-.layout > div:first-child:not(.nc),
+.layout > div:first-of-type:not(.nc),
 #recent-posts .recent-post-item,
 #article-container .shuoshuo-item,
 #aside-content .card-widget,
@@ -245,7 +245,7 @@ template {
   border-radius: 8px;
 }
 .cardHover:hover,
-.layout > div:first-child:not(.nc):hover,
+.layout > div:first-of-type:not(.nc):hover,
 #recent-posts .recent-post-item:hover,
 #article-container .shuoshuo-item:hover,
 #aside-content .card-widget:hover,
@@ -459,6 +459,7 @@ canvas:not(#ribbon-canvas),
 .shuoshuo-navigation button:not(:disabled),
 #aside-content .card-info #card-info-btn,
 .post-reward .reward-button,
+.category-sidebar .category-sidebar-toggle,
 #rightside > div > button,
 #rightside > div > a,
 .container .btn-beautify,
@@ -482,6 +483,7 @@ canvas:not(#ribbon-canvas),
 .shuoshuo-navigation button:not(:disabled):hover,
 #aside-content .card-info #card-info-btn:hover,
 .post-reward .reward-button:hover,
+.category-sidebar .category-sidebar-toggle:hover,
 #rightside > div > button:hover,
 #rightside > div > a:hover,
 .container .btn-beautify:hover,
@@ -501,6 +503,7 @@ canvas:not(#ribbon-canvas),
 .shuoshuo-navigation button:not(:disabled):active,
 #aside-content .card-info #card-info-btn:active,
 .post-reward .reward-button:active,
+.category-sidebar .category-sidebar-toggle:active,
 #rightside > div > button:active,
 #rightside > div > a:active,
 .container .btn-beautify:active,
@@ -522,6 +525,7 @@ canvas:not(#ribbon-canvas),
 .shuoshuo-navigation button:not(:disabled) i,
 #aside-content .card-info #card-info-btn i,
 .post-reward .reward-button i,
+.category-sidebar .category-sidebar-toggle i,
 #rightside > div > button i,
 #rightside > div > a i,
 .container .btn-beautify i,
@@ -540,6 +544,7 @@ canvas:not(#ribbon-canvas),
 .shuoshuo-navigation button:not(:disabled):hover i,
 #aside-content .card-info #card-info-btn:hover i,
 .post-reward .reward-button:hover i,
+.category-sidebar .category-sidebar-toggle:hover i,
 #rightside > div > button:hover i,
 #rightside > div > a:hover i,
 .container .btn-beautify:hover i,
@@ -556,6 +561,7 @@ canvas:not(#ribbon-canvas),
 .shuoshuo-navigation button:not(:disabled) i + span,
 #aside-content .card-info #card-info-btn i + span,
 .post-reward .reward-button i + span,
+.category-sidebar .category-sidebar-toggle i + span,
 #rightside > div > button i + span,
 #rightside > div > a i + span,
 .container .btn-beautify i + span,
@@ -574,6 +580,7 @@ canvas:not(#ribbon-canvas),
 .shuoshuo-navigation button:not(:disabled):hover i + span,
 #aside-content .card-info #card-info-btn:hover i + span,
 .post-reward .reward-button:hover i + span,
+.category-sidebar .category-sidebar-toggle:hover i + span,
 #rightside > div > button:hover i + span,
 #rightside > div > a:hover i + span,
 .container .btn-beautify:hover i + span,
@@ -586,6 +593,7 @@ canvas:not(#ribbon-canvas),
 .shuoshuo-navigation button:not(:disabled)::before,
 #aside-content .card-info #card-info-btn::before,
 .post-reward .reward-button::before,
+.category-sidebar .category-sidebar-toggle::before,
 #rightside > div > button::before,
 #rightside > div > a::before,
 .container .btn-beautify::before,
@@ -614,6 +622,7 @@ canvas:not(#ribbon-canvas),
 .shuoshuo-navigation button:not(:disabled):hover::before,
 #aside-content .card-info #card-info-btn:hover::before,
 .post-reward .reward-button:hover::before,
+.category-sidebar .category-sidebar-toggle:hover::before,
 #rightside > div > button:hover::before,
 #rightside > div > a:hover::before,
 .container .btn-beautify:hover::before,
@@ -626,6 +635,7 @@ canvas:not(#ribbon-canvas),
 .shuoshuo-navigation button:not(:disabled) > *,
 #aside-content .card-info #card-info-btn > *,
 .post-reward .reward-button > *,
+.category-sidebar .category-sidebar-toggle > *,
 #rightside > div > button > *,
 #rightside > div > a > *,
 .container .btn-beautify > *,
@@ -2580,18 +2590,18 @@ figure.highlight pre .javascript .function {
     max-width: 60%;
   }
 }
-.layout > div:first-child:not(.nc) {
+.layout > div:first-of-type:not(.nc) {
   -webkit-align-self: flex-start;
   align-self: flex-start;
   -ms-flex-item-align: start;
   padding: 50px 40px;
 }
 @media screen and (max-width: 768px) {
-  .layout > div:first-child:not(.nc) {
+  .layout > div:first-of-type:not(.nc) {
     padding: 36px 14px;
   }
 }
-.layout > div:first-child {
+.layout > div:first-of-type {
   width: 74%;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
@@ -2600,7 +2610,7 @@ figure.highlight pre .javascript .function {
   transition: all 0.3s;
 }
 @media screen and (max-width: 900px) {
-  .layout > div:first-child {
+  .layout > div:first-of-type {
     width: 100% !important;
   }
 }
@@ -4488,7 +4498,10 @@ figure.highlight pre .javascript .function {
   display: none;
 }
 #page-header.not-top-img #nav {
-  background: rgba(255,255,255,0.8);
+  --navigation-surface: var(--card-bg);
+  --navigation-ink: var(--font-color);
+  --navigation-text-shadow: none;
+  background: var(--navigation-surface);
   -webkit-box-shadow: 0 5px 6px -5px rgba(133,133,133,0.6);
   box-shadow: 0 5px 6px -5px rgba(133,133,133,0.6);
 }
@@ -4502,7 +4515,10 @@ figure.highlight pre .javascript .function {
   position: fixed;
   top: -60px;
   z-index: 91;
-  background: rgba(255,255,255,0.7);
+  --navigation-surface: var(--card-bg);
+  --navigation-ink: var(--font-color);
+  --navigation-text-shadow: none;
+  background: var(--navigation-surface);
   -webkit-box-shadow: 0 5px 6px -5px rgba(133,133,133,0.6);
   box-shadow: 0 5px 6px -5px rgba(133,133,133,0.6);
   -webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
@@ -4657,6 +4673,9 @@ figure.highlight pre .javascript .function {
   text-decoration: underline;
 }
 #nav {
+  --navigation-surface: transparent;
+  --navigation-ink: var(--white);
+  --navigation-text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
   position: absolute;
   top: 0;
   z-index: 90;
@@ -5415,6 +5434,49 @@ figure.highlight pre .javascript .function {
   width: 130px;
   color: #858585;
 }
+.category-sidebar {
+  --category-sidebar-top: 72px;
+  position: fixed;
+  inset-inline-start: 0;
+  inset-block-start: var(--category-sidebar-top);
+  z-index: 100;
+}
+.category-sidebar .category-sidebar-toggle {
+  display: block;
+  width: 35px;
+  height: 35px;
+  background-color: var(--btn-bg);
+  color: var(--btn-color);
+  text-align: center;
+  font-size: 16px;
+  line-height: 35px;
+  border-radius: 5px;
+  background-color: var(--default-bg-color);
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+}
+.category-sidebar .category-sidebar-toggle:hover {
+  background-color: var(--btn-hover-color);
+}
+.category-sidebar .category-sidebar-toggle i {
+  vertical-align: baseline;
+}
+.category-sidebar .category-sidebar-toggle:hover {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+  background-color: var(--default-bg-color);
+}
+.category-sidebar .category-sidebar-toggle[aria-pressed='true'] {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+  background-color: var(--card-bg);
+  -webkit-box-shadow: inset 0 0 0 2px var(--default-bg-color);
+  box-shadow: inset 0 0 0 2px var(--default-bg-color);
+  color: var(--text-highlight-color);
+}
 #rightside {
   position: fixed;
   right: -48px;
@@ -5475,7 +5537,6 @@ figure.highlight pre .javascript .function {
 #rightside > div > button,
 #rightside > div > a {
   display: block;
-  margin-bottom: 5px;
   width: 35px;
   height: 35px;
   background-color: var(--btn-bg);
@@ -5484,6 +5545,7 @@ figure.highlight pre .javascript .function {
   font-size: 16px;
   line-height: 35px;
   border-radius: 5px;
+  margin-bottom: 5px;
 }
 #rightside > div > button:hover,
 #rightside > div > a:hover {
@@ -7355,7 +7417,6 @@ blockquote.pullquote.right {
 }
 [data-theme='dark'] #page-header.nav-fixed > #nav,
 [data-theme='dark'] #page-header.not-top-img > #nav {
-  background: rgba(18,18,18,0.8);
   -webkit-box-shadow: 0 5px 6px -5px rgba(133,133,133,0);
   box-shadow: 0 5px 6px -5px rgba(133,133,133,0);
 }
